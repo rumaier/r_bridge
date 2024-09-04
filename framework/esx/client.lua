@@ -31,6 +31,7 @@ function Core.Framework.GiveKeys(vehicle)
     elseif resource == 'custom' then
         -- insert your car lock sytem here
     end
+    debug('[DEBUG] - GiveKeys:', vehicle, plate)
 end
 
 function Core.Framework.GetPlayerName()
