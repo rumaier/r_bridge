@@ -28,7 +28,7 @@ function Core.Target.AddBoxZone(name, coords, size, heading, options)
     end
     exports['qb-target']:AddBoxZone(name, coords, size.x, size.y, {
         name = name,
-        debugPoly = Cfg.Debug.Targets,
+        debugPoly = Cfg.Debug,
         heading = heading,
         minZ = coords.z - (size.x * 0.5),
         maxZ = coords.z + (size.x * 0.5),

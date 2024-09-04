@@ -17,7 +17,7 @@ function Core.Target.AddBoxZone(name, coords, size, heading, options)
         coords = coords,
         size = size,
         rotation = heading,
-        debug = Cfg.Debug or false,
+        debug = Cfg.Debug,
         options = options,
     })
 end
