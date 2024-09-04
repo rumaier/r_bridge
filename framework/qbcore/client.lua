@@ -15,7 +15,7 @@ function Core.Framework.Notify(message, type)
     end
 end
 
-function Core.CarKeys.GiveKeys(vehicle)
+function Core.Framework.GiveKeys(vehicle)
     if not Cfg.CarLock then return end
     local plate = GetVehicleNumberPlateText(vehicle)
     local resource = Cfg.CarLock

@@ -6,7 +6,7 @@ lua54 'yes'
 name 'r_bridge'
 description 'Function library for r_scripts resources'
 author 'r_scripts'
-version '1.0.0'
+version '1.0.1'
 
 shared_script 'config.lua'
 

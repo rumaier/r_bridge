@@ -3,11 +3,11 @@ body {
     margin: 0;
     padding: 0;
     height: 100vh;
-    background-image: url('https://i.ytimg.com/vi/NQryvJ1qNZs/maxresdefault.jpg');
+    /* background-image: url('https://i.ytimg.com/vi/NQryvJ1qNZs/maxresdefault.jpg');
     background-color: #333;
     background-size: cover;
     background-position: center;
-    background-repeat: no-repeat;
+    background-repeat: no-repeat; */
     position: relative;
 }
 
