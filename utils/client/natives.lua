@@ -58,3 +58,22 @@ function Core.Natives.PlayAnim(ped, dict, anim, duration, flag, playback)
     TaskPlayAnim(ped, dict, anim, 8.0, 8.0, duration, flag, playback, false, false, false)
     RemoveAnimDict(dict)
 end
+
+function Core.Natives.PlayPtFx(coords, asset, effect, scale)
+    RequestNamedPtfxAsset(asset)
+    while not HasNamedPtfxAssetLoaded(asset) do Wait(10) end
+    UseParticleFxAsset(asset)
+    StartParticleFxNonLoopedAtCoord(effect, coords.x, coords.y, coords.z, 0, 0, 0, scale, false, false, false)
+    RemoveNamedPtfxAsset(asset)
+end
+
+function Core.Natives.PlayPtFxLooped(coords, asset, effect, scale, duration)
+    RequestNamedPtfxAsset(asset)
+    while not HasNamedPtfxAssetLoaded(asset) do Wait(0) end
+    UseParticleFxAsset(asset)
+    local ptFx = StartParticleFxLoopedAtCoord(effect, coords.x, coords.y, coords.z, 0, 0, 0, scale, false, false, false, false)
+    SetTimeout(duration, function()
+        StopParticleFxLooped(ptFx, false)
+        RemoveNamedPtfxAsset(asset)
+    end)
+end
