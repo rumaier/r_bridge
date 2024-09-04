@@ -1,5 +1,7 @@
 if GetResourceState('qb-target') ~= 'started' or GetResourceState('ox_target') == 'started' then return end
 
+local targetZones = {}
+
 Core.Target = {}
 
 function Core.Target.AddLocalEntity(entities, options)
@@ -36,6 +38,7 @@ function Core.Target.AddBoxZone(name, coords, size, heading, options)
         options = options,
         distance = 1.5,
     })
+    table.insert(targetZones, name)
 end
 
 function Core.Target.RemoveLocalEntity(entity)
@@ -48,4 +51,10 @@ end
 
 function Core.Target.RemoveZone(id, name)
     exports['qb-target']:RemoveZone(name)
+    for i = 1, #targetZones do
+        if targetZones[i] == name then
+            table.remove(targetZones, i)
+            break
+        end
+    end
 end

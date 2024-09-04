@@ -21,7 +21,7 @@ function Core.Target.AddBoxZone(name, coords, size, heading, options)
         debug = Cfg.Debug,
         options = options,
     })
-    table.insert(targetZones, target)
+    table.insert(targetZones, { id = target, name = name })
     return target
 end
 
@@ -35,13 +35,19 @@ end
 
 function Core.Target.RemoveZone(id, name)
     ox_target:removeZone(id)
+    for i = 1, #targetZones do
+        if targetZones[i].id == id then
+            table.remove(targetZones, i)
+            break
+        end
+    end
 end
 
 AddEventHandler('onResourceStop', function(resource)
     if resource == GetCurrentResourceName() then
         local removed = 0
         for _, target in pairs(targetZones) do
-            ox_target:removeZone(target)
+            ox_target:removeZone(target.id)
             removed = removed + 1
         end
         if removed > 0 then print('[DEBUG] - removed target zones for:', resource, removed) end
