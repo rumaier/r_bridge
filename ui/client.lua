@@ -3,15 +3,6 @@ local isHelpTextVisible = false
 
 Core.Ui = {}
 
-RegisterCommand('ui', function()
-    Core.Ui.ShowTextUi("E", "Remove Vehicle")
-    Core.Ui.ShowHelpText("Do what this text says")
-    SetTimeout(5000, function()
-        Core.Ui.HideTextUi()
-        Core.Ui.HideHelpText()
-    end)
-end, false)
-
 function Core.Ui.ShowTextUi(key, text)
     SendNUIMessage({
         type = "text-ui",
