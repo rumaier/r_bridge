@@ -21,7 +21,7 @@ body {
 .help-text {
     display: block;
     opacity: 0;
-    transition: all ease-in-out 0.5s;
+    transition: all ease-in-out 0.1s;
     position: absolute;
     top: 40%;
     left: 15px;
@@ -43,7 +43,7 @@ body {
     opacity: 0;
     align-items: center; 
     justify-content: center; 
-    transition: all ease-in-out 0.5s;
+    transition: all ease-in-out 0.2s;
     font-size: 18px;
     color: white;
     padding: 10px 20px;
