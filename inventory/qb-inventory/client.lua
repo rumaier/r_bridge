@@ -1,5 +1,6 @@
 if GetResourceState('qb-inventory') ~= 'started' then return end
 
+Core.Info.Inventory = 'qb-inventory'
 local QBCore = exports['qb-core']:GetCoreObject()
 
 Core.Inventory = {}

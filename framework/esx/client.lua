@@ -1,5 +1,6 @@
 if GetResourceState('es_extended') ~= 'started' then return end
 
+Core.Info.Framework = 'ESX'
 local ESX = exports["es_extended"]:getSharedObject()
 
 Core.Framework = {}

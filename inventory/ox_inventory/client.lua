@@ -1,5 +1,6 @@
 if GetResourceState('ox_inventory') ~= 'started' then return end
 
+Core.Info.Inventory = 'ox_inventory'
 local ox_inventory = exports.ox_inventory
 
 Core.Inventory = {}

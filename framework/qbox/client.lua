@@ -1,5 +1,6 @@
 if GetResourceState('qbx_core') ~= 'started' then return end
 
+Core.Info.Framework = 'QBox'
 local QBox = exports.qbx_core
 
 Core.Framework = {}

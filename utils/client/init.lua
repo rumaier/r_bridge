@@ -1,4 +1,5 @@
 Core = {}
+Core.Info = {}
 
 local function returnCoreObject()
     return Core

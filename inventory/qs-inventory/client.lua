@@ -1,5 +1,7 @@
 if GetResourceState('qs-inventory') ~= 'started' then return end
 
+Core.Info.Inventory = 'qs-inventory'
+
 Core.Inventory = {}
 
 function Core.Inventory.OpenStash(id)
