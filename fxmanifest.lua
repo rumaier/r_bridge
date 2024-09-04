@@ -6,7 +6,7 @@ lua54 'yes'
 name 'r_bridge'
 description 'Function library for r_scripts resources'
 author 'r_scripts'
-version '1.0.1'
+version '1.0.2'
 
 shared_script 'config.lua'
 
@@ -23,6 +23,7 @@ client_scripts {
     'framework/**/client.lua',
     'inventory/**/client.lua',
     'target/**/client.lua',
+    'ui/client.lua',
 }
 
 ui_page 'ui/index.html'
