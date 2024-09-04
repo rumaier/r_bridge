@@ -44,7 +44,7 @@ function Core.Target.RemoveZone(id, name)
 end
 
 AddEventHandler('onResourceStop', function(resource)
-    if resource == GetCurrentResourceName() then
+    if resource ~= GetCurrentResourceName() then
         local removed = 0
         for _, target in pairs(targetZones) do
             ox_target:removeZone(target.id)

@@ -58,3 +58,14 @@ function Core.Target.RemoveZone(id, name)
         end
     end
 end
+
+AddEventHandler('onResourceStop', function(resource)
+    if resource ~= GetCurrentResourceName() then
+        local removed = 0
+        for _, target in pairs(targetZones) do
+            exports['qb-target']:RemoveZone(target)
+            removed = removed + 1
+        end
+        if removed > 0 then print('[DEBUG] - removed target zones for:', resource, removed) end
+    end
+end)
