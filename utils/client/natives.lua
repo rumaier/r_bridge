@@ -1,3 +1,5 @@
+local blips = {}
+
 Core.Natives = {}
 
 function Core.Natives.CreateBlip(coords, sprite, color, scale, label, shortRange)
@@ -9,7 +11,18 @@ function Core.Natives.CreateBlip(coords, sprite, color, scale, label, shortRange
     BeginTextCommandSetBlipName("STRING")
     AddTextComponentString(label)
     EndTextCommandSetBlipName(blip)
-    return blip
+    blips[#blips + 1] = { id = blip, creator = GetInvokingResource() }
+    return blips[#blips].id
+end
+
+function Core.Natives.RemoveBlip(id)
+    for _, blip in pairs(blips) do
+        if blip.id == id then
+            RemoveBlip(id)
+            table.remove(blips, _)
+            return
+        end
+    end
 end
 
 function Core.Natives.SetGpsRoute(render, coords, color)
@@ -77,3 +90,16 @@ function Core.Natives.PlayPtFxLooped(coords, asset, effect, scale, duration)
         RemoveNamedPtfxAsset(asset)
     end)
 end
+
+AddEventHandler('onResourceStop', function(resource)
+    if resource ~= GetCurrentResourceName() then
+        local removed = 0
+        for _, blip in pairs(blips) do
+            if blip.creator == resource then
+                RemoveBlip(blip.id)
+                removed = removed + 1
+            end
+        end
+        if removed > 0 then print('[DEBUG] - removed blips for:', resource, removed) end
+    end
+end)
