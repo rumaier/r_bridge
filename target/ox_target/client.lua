@@ -1,6 +1,7 @@
 if GetResourceState('ox_target') ~= 'started' then return end
 
 local ox_target = exports.ox_target
+local targetZones = {}
 
 Core.Target = {}
 
@@ -13,13 +14,15 @@ function Core.Target.AddModel(models, options)
 end
 
 function Core.Target.AddBoxZone(name, coords, size, heading, options)
-    return ox_target:addBoxZone({
+    local target = ox_target:addBoxZone({
         coords = coords,
         size = size,
         rotation = heading,
         debug = Cfg.Debug,
         options = options,
     })
+    table.insert(targetZones, target)
+    return target
 end
 
 function Core.Target.RemoveLocalEntity(entity)
@@ -33,3 +36,14 @@ end
 function Core.Target.RemoveZone(id, name)
     ox_target:removeZone(id)
 end
+
+AddEventHandler('onResourceStop', function(resource)
+    if resource == GetCurrentResourceName() then
+        local removed = 0
+        for _, target in pairs(targetZones) do
+            ox_target:removeZone(target)
+            removed = removed + 1
+        end
+        if removed > 0 then print('[DEBUG] - removed target zones for:', resource, removed) end
+    end
+end)

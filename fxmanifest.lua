@@ -8,7 +8,10 @@ description 'Function library for r_scripts resources'
 author 'r_scripts'
 version '1.0.2'
 
-shared_script 'config.lua'
+shared_scripts {
+    '@ox_lib/init.lua',
+    'config.lua'
+}
 
 server_scripts {
     'utils/server/*.lua',
