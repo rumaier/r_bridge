@@ -38,7 +38,7 @@ function Core.Target.AddBoxZone(name, coords, size, heading, options)
         options = options,
         distance = 1.5,
     })
-    table.insert(targetZones, name)
+    table.insert(targetZones, { name = name, creator = GetInvokingResource() })
 end
 
 function Core.Target.RemoveLocalEntity(entity)
@@ -63,8 +63,10 @@ AddEventHandler('onResourceStop', function(resource)
     if resource ~= GetCurrentResourceName() then
         local removed = 0
         for _, target in pairs(targetZones) do
-            exports['qb-target']:RemoveZone(target)
-            removed = removed + 1
+            if target.creator == resource then
+                exports['qb-target']:RemoveZone(target.name)
+                removed = removed + 1
+            end
         end
         if removed > 0 then print('[DEBUG] - removed target zones for:', resource, removed) end
     end
