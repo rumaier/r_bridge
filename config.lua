@@ -15,5 +15,5 @@ Cfg = {
     -- Choose the carlock system you want to use. 'custom' can be configured in your frameworks bridge.
     CarLock = false, -- 'qb', 'wasabi', 'mrnewb', 'quasar', 'custom', false to disable
     -- Enable or disable the debug mode. Recommended to keep it disabled.
-    Debug = false
+    Debug = true
 }

@@ -101,5 +101,6 @@ AddEventHandler('onResourceStop', function(resource)
             end
         end
         if removed > 0 then print('[DEBUG] - removed blips for:', resource, removed) end
+        removed = 0
     end
 end)
