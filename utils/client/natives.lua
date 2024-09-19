@@ -92,15 +92,14 @@ function Core.Natives.PlayPtFxLooped(coords, asset, effect, scale, duration)
 end
 
 AddEventHandler('onResourceStop', function(resource)
+    local removed = 0
     if resource ~= GetCurrentResourceName() then
-        local removed = 0
         for _, blip in pairs(blips) do
             if blip.creator == resource then
                 RemoveBlip(blip.id)
                 removed = removed + 1
             end
         end
-        if removed > 0 then print('[DEBUG] - removed blips for:', resource, removed) end
-        removed = 0
+        if removed > 0 then print('[DEBUG] - removed blips for ' .. resource) end
     end
 end)
