@@ -60,3 +60,8 @@ function Core.Inventory.GetItemInfo(item)
     itemInfo.stack = not itemInfo.unique
     return itemInfo
 end
+
+function Core.Inventory.SetMetadata(src, item, slot, metadata)
+    local src = src or source
+    exports['qs-inventory']:SetItemMetadata(src, slot, metadata)
+end

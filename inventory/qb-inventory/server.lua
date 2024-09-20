@@ -70,7 +70,7 @@ function Core.Inventory.CanCarryItem(src, item, count)
 end
 
 function Core.Inventory.RegisterStash(id, label, slots, weight, owner)
-    -- qb-inventory handles all the stash stuff client side, so we don't need to do anything here
+    -- v1 handles client, idk about v2.. so we just leave this alone
 end
 
 function Core.Inventory.GetItemInfo(item)
@@ -79,4 +79,11 @@ function Core.Inventory.GetItemInfo(item)
     itemInfo.metadata = item.info
     itemInfo.stack = item.unique
     return itemInfo
+end
+
+function Core.Inventory.SetMetadata(src, item, slot, metadata)
+    local src = src or source
+    local removed = exports['qb-inventory']:RemoveItem(src, item, 1, slot)
+    if not removed then return end
+    exports['qb-inventory']:AddItem(src, item, 1, nil, metadata)
 end

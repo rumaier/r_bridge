@@ -42,3 +42,8 @@ end
 function Core.Inventory.GetItemInfo(item)
     return ox_inventory:Items(item)
 end
+
+function Core.Inventory.SetMetadata(src, item, slot, metadata)
+    local src = src or source
+    ox_inventory:SetMetadata(src, slot, metadata)
+end
