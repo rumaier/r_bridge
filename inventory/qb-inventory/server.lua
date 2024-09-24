@@ -15,7 +15,7 @@ end
 
 function Core.Inventory.RemoveItem(src, item, count, metadata)
     local src = src or source
-    if metadata and #metadata > 0 then
+    if metadata ~= nil then
         local playerInv = QBCore.Functions.GetPlayer(src).PlayerData.items
         if not playerInv then return end
         for _, item in pairs(playerInv) do
