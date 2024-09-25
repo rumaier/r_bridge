@@ -1,4 +1,5 @@
 if GetResourceState('qb-core') ~= 'started' then return end
+if GetResourceState('qbx_core') == 'started' then return end
 
 Core.Info.Framework = 'QBCore'
 local QBCore = exports['qb-core']:GetCoreObject()

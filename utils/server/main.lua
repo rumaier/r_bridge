@@ -7,7 +7,7 @@ local function checkVersion()
             local data = json.decode(text)
             local latest = data.tag_name
             if latest ~= current then
-                print('[^3WARNING^0] '.. _L('update', GetCurrentResourceName()))
+                print('[^3WARNING^0] Please update '.. GetCurrentResourceName() ..' to the latest version from Github')
                 print('[^3WARNING^0] https://github.com/rumaier/r_bridge/releases/latest ^0')
             end
         end
