@@ -11,7 +11,16 @@ end
 
 function Core.Inventory.RemoveItem(src, item, count, metadata)
     local src = src or source
-    return exports['qs-inventory']:RemoveItem(src, item, count, nil, metadata)
+    if metadata ~= nil then
+        local playerInv = exports['qs-inventory']:GetInventory(src)
+        if not playerInv then return end
+        for _, item in pairs(playerInv) do
+            if lib.table.matches(item.info, metadata) then
+                return exports['qs-inventory']:RemoveItem(src, item.name, count, item.slot)
+            end
+        end
+    end
+    return exports['qs-inventory']:RemoveItem(src, item, count, nil)
 end
 
 function Core.Inventory.GetItem(src, item, metadata)
