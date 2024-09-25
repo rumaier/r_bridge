@@ -11,7 +11,7 @@ end
 
 function Core.Inventory.RemoveItem(src, item, count, metadata)
     local src = src or source
-    return exports ['qs-inventory']:RemoveItem(src, item, count, nil, metadata)
+    return exports['qs-inventory']:RemoveItem(src, item, count, nil, metadata)
 end
 
 function Core.Inventory.GetItem(src, item, metadata)
