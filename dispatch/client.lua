@@ -1,6 +1,6 @@
 Core.Dispatch = {}
 
-Core.Info.Dispatch = Cfg.Dispatch
+Core.Info.Dispatch = Cfg.Dispatch or ''
 
 function Core.Dispatch.TriggerDispatch(jobs)
     if Cfg.Dispatch == 'linden_outlawalert' then
