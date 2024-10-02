@@ -6,7 +6,7 @@ lua54 'yes'
 name 'r_bridge'
 description 'Function library for r_scripts resources'
 author 'r_scripts'
-version '1.0.4'
+version '1.0.5'
 
 shared_scripts {
     '@ox_lib/init.lua',
