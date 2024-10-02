@@ -15,10 +15,10 @@ local function checkVersion()
     SetTimeout(3600000, checkVersion)
 end
 
-AddEventHandler('onResourceStart', function(resourceName)
-    if (GetCurrentResourceName() == resourceName) then
+AddEventHandler('onResourceStart', function(resource)
+    if (GetCurrentResourceName() == resource) then
         print('------------------------------')
-        print(resourceName .. ' | ' .. GetResourceMetadata(resourceName, 'version', 0))
+        print(resource .. ' | ' .. GetResourceMetadata(resource, 'version', 0))
         print('Framework: ' .. Core.Info.Framework)
         print('Inventory: ' .. Core.Info.Inventory)
         print('Target: ' .. Core.Info.Target)

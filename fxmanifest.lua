@@ -18,6 +18,7 @@ server_scripts {
     'framework/**/server.lua',
     'inventory/**/server.lua',
     'target/**/server.lua',
+    'dispatch/**/server.lua',
 }
 
 client_scripts {
@@ -26,6 +27,7 @@ client_scripts {
     'framework/**/client.lua',
     'inventory/**/client.lua',
     'target/**/client.lua',
+    'dispatch/**/client.lua',
     'ui/client.lua',
 }
 
