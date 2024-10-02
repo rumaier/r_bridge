@@ -10,10 +10,16 @@
 Cfg = {
     -- Check if the resource is up to date. Recommended to keep it enabled.
     VersionCheck = true,
+
     -- Choose the notification system you want to use. 'custom' can be configured in your frameworks bridge.
     Notification = 'default', -- 'default', 'ox', 'custom'
+
     -- Choose the carlock system you want to use. 'custom' can be configured in your frameworks bridge.
     CarLock = false, -- 'qb', 'wasabi', 'mrnewb', 'quasar', 'custom', false to disable
+
+    -- Choose the dispatch system you want to use. 'custom' can be configured in your frameworks bridge.
+    Dispatch = 'linden_outlawalert', -- 'linden_outlawalert', 'ps-dispatch', 'cd_dispatch', 'rcore_dispatch', 'custom', false to disable
+    
     -- Enable or disable the debug mode. Recommended to keep it disabled.
     Debug = true
-}
+} 
