@@ -22,6 +22,7 @@ AddEventHandler('onResourceStart', function(resourceName)
         print('Framework: ' .. Core.Info.Framework)
         print('Inventory: ' .. Core.Info.Inventory)
         print('Target: ' .. Core.Info.Target)
+        print('Dispatch: ' .. Core.Info.Dispatch)
         print('------------------------------')
         checkVersion()
     end
