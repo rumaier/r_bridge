@@ -18,7 +18,7 @@ Cfg = {
     CarLock = false, -- 'qb', 'wasabi', 'mrnewb', 'quasar', 'custom', false to disable
 
     -- Choose the dispatch system you want to use. 'custom' can be configured in your frameworks bridge.
-    Dispatch = 'linden_outlawalert', -- 'linden_outlawalert', 'ps-dispatch', 'cd_dispatch', 'rcore_dispatch', 'custom', false to disable
+    Dispatch = false, -- 'linden_outlawalert', 'ps-dispatch', 'cd_dispatch', 'rcore_dispatch', 'custom', false to disable
     
     -- Enable or disable the debug mode. Recommended to keep it disabled.
     Debug = true

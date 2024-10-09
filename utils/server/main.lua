@@ -19,10 +19,27 @@ AddEventHandler('onResourceStart', function(resource)
     if (GetCurrentResourceName() == resource) then
         print('------------------------------')
         print(resource .. ' | ' .. GetResourceMetadata(resource, 'version', 0))
-        print('Framework: ' .. Core.Info.Framework)
-        print('Inventory: ' .. Core.Info.Inventory)
-        print('Target: ' .. Core.Info.Target)
-        print('Dispatch: ' .. Core.Info.Dispatch)
+        if not Core.Info.Framework then
+            print('^1Framework not found^0')
+        else
+            print('Framework: ' .. Core.Info.Framework)
+        end
+        if not Core.Info.Inventory then
+            print('^1Inventory not found^0')
+        else
+            print('Inventory: ' .. Core.Info.Inventory)
+        end
+        if not Core.Info.Target then
+            print('^1Target not found^0')
+        else
+            print('Target: ' .. Core.Info.Target)
+        end
+        if Cfg.Carlock then
+            print('Carlock: ' .. Cfg.Carlock)
+        end
+        if Cfg.Dispatch then
+            print('Dispatch: ' .. Cfg.Dispatch)
+        end
         print('------------------------------')
         checkVersion()
     end
