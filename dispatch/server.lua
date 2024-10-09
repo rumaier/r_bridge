@@ -1,3 +1,3 @@
 Core.Dispatch = {}
 
-Core.Info.Dispatch = Cfg.Dispatch or ''
+Core.Info.Dispatch = Cfg.Dispatch or nil
