@@ -4,6 +4,8 @@ local targetZones = {}
 
 Core.Target = {}
 
+---@param entities string | table
+---@param options table
 function Core.Target.AddLocalEntity(entities, options)
     for k, v in pairs(options) do
         options[k].action = v.onSelect
@@ -14,6 +16,8 @@ function Core.Target.AddLocalEntity(entities, options)
     })
 end
 
+---@param models string | table
+---@param options table
 function Core.Target.AddModel(models, options)
     for k, v in pairs(options) do
         options[k].action = v.onSelect
@@ -24,6 +28,13 @@ function Core.Target.AddModel(models, options)
     })
 end
 
+---@param name string
+---@param coords table |vector3
+---@param size table | vector3
+---@param heading number
+---@param options table
+---@param debug boolean
+---@return number | nil
 function Core.Target.AddBoxZone(name, coords, size, heading, options, debug)
     for k, v in pairs(options) do
         options[k].action = v.onSelect
@@ -41,14 +52,18 @@ function Core.Target.AddBoxZone(name, coords, size, heading, options, debug)
     table.insert(targetZones, { name = name, creator = GetInvokingResource() })
 end
 
+---@param entity number
 function Core.Target.RemoveLocalEntity(entity)
     exports['qb-target']:RemoveTargetEntity(entity)
 end
 
+---@param model number
 function Core.Target.RemoveModel(model)
     exports['qb-target']:RemoveTargetModel(model)
 end
 
+---@param id number
+---@param name string
 function Core.Target.RemoveZone(id, name)
     exports['qb-target']:RemoveZone(name)
     for i = 1, #targetZones do
@@ -68,6 +83,6 @@ AddEventHandler('onResourceStop', function(resource)
                 removed = removed + 1
             end
         end
-        if removed > 0 then print('[DEBUG] - removed target zones for:', resource, removed) end
+        if removed > 0 then print('[DEBUG] - removed target zones for:', resource) end
     end
 end)

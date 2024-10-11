@@ -5,6 +5,11 @@ local QBCore = exports['qb-core']:GetCoreObject()
 
 Core.Inventory = {}
 
+---@param src number
+---@param item string
+---@param count number
+---@param metadata table
+---@return boolean
 function Core.Inventory.AddItem(src, item, count, metadata)
     local src = src or source
     local added = exports['ps-inventory']:AddItem(src, item, count, nil, metadata)
@@ -13,6 +18,11 @@ function Core.Inventory.AddItem(src, item, count, metadata)
     return added
 end
 
+---@param src number
+---@param item string
+---@param count number
+---@param metadata table
+---@return boolean
 function Core.Inventory.RemoveItem(src, item, count, metadata)
     local src = src or source
     if metadata ~= nil then
@@ -33,6 +43,10 @@ function Core.Inventory.RemoveItem(src, item, count, metadata)
     return removed
 end
 
+---@param src number
+---@param item string
+---@param metadata table
+---@return table | nil
 function Core.Inventory.GetItem(src, item, metadata)
     local src = src or source
     local playerItems = QBCore.Functions.GetPlayer(src).PlayerData.items
@@ -47,12 +61,18 @@ function Core.Inventory.GetItem(src, item, metadata)
     end
 end
 
+---@param src number
+---@param item string
+---@param metadata table
+---@return number
 function Core.Inventory.GetItemCount(src, item, metadata)
     local src = src or source
     local totalItems = exports['ps-inventory']:GetItemsByName(src, item)
     return totalItems[1].amount or 0
 end
 
+---@param src number
+---@return table
 function Core.Inventory.GetInventoryItems(src)
     local src = src or source
     local playerItems = QBCore.Functions.GetPlayer(src).PlayerData.items
@@ -65,14 +85,26 @@ function Core.Inventory.GetInventoryItems(src)
     return playerItems
 end
 
+---@param src number
+---@param item string
+---@param count number
+---@return boolean
 function Core.Inventory.CanCarryItem(src, item, count)
     return true -- this framework is garbage, doesn't have a check in v1 inv, so we just return true
 end
 
+---@param id number
+---@param label string
+---@param slots number
+---@param weight number
+---@param owner string
+---@return boolean | number | nil
 function Core.Inventory.RegisterStash(id, label, slots, weight, owner)
     -- v1 handles client, idk about v2.. so we just leave this alone
 end
 
+---@param item string
+---@return table | nil
 function Core.Inventory.GetItemInfo(item)
     local itemInfo = QBCore.Shared.Items[item]
     itemInfo.count = item.amount
@@ -81,6 +113,10 @@ function Core.Inventory.GetItemInfo(item)
     return itemInfo
 end
 
+---@param src number
+---@param item string
+---@param slot number
+---@param metadata table
 function Core.Inventory.SetMetadata(src, item, slot, metadata)
     local src = src or source
     local removed = exports['ps-inventory']:RemoveItem(src, item, 1, slot)
