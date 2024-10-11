@@ -16,23 +16,6 @@ function Core.Framework.Notify(message, type)
     end
 end
 
-function Core.Framework.GiveKeys(vehicle)
-    if not Cfg.CarLock then return end
-    local plate = GetVehicleNumberPlateText(vehicle)
-    local resource = Cfg.CarLock
-    if resource == 'qb' then
-        TriggerEvent("qb-vehiclekeys:client:AddKeys", plate)
-    elseif resource == 'wasabi' then
-        exports.wasabi_carlock:GiveKey(plate)
-    elseif resource == 'mrnewb' then
-        exports.MrNewbVehicleKeys:GiveKeys(vehicle)
-    elseif resource == 'quasar' then
-        exports['qs-vehiclekeys']:GiveKeys(plate, vehicle, true)
-    elseif resource == 'custom' then
-        -- insert your car lock sytem here
-    end
-end
-
 function Core.Framework.GetPlayerName()
     return QBX.PlayerData.charinfo.firstname, QBX.PlayerData.charinfo.lastname
 end

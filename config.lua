@@ -20,6 +20,6 @@ Cfg = {
     -- Choose the dispatch system you want to use. 'custom' can be configured in your frameworks bridge.
     Dispatch = false, -- 'linden_outlawalert', 'ps-dispatch', 'cd_dispatch', 'rcore_dispatch', 'custom', false to disable
     
-    -- Enable or disable the debug mode. Recommended to keep it disabled.
+    -- Enable or disable the debug mode. Recommended to keep it disabled in production.
     Debug = true
 } 
