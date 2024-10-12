@@ -69,9 +69,6 @@ function Core.Framework.AddAccountBalance(src, account, amount)
     player.Functions.AddMoney(account, amount)
 end
 
----@param src number
----@param account string
----@param amount number
 function Core.Framework.RemoveAccountBalance(src, account, amount)
     local src = src or source
     local player = QBox:GetPlayer(src)
@@ -80,8 +77,6 @@ function Core.Framework.RemoveAccountBalance(src, account, amount)
     player.Functions.RemoveMoney(account, amount)
 end
 
----@param item string
----@param cb function
 function Core.Framework.RegisterUsableItem(item, cb)
     QBox:CreateUseableItem(item, cb)
 end

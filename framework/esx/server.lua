@@ -5,9 +5,6 @@ local ESX = exports["es_extended"]:getSharedObject()
 
 Core.Framework = {}
 
----@param src number
----@param message string
----@param type string
 function Core.Framework.Notify(src, message, type)
     local src = src or source
     local resource = Cfg.Notification
@@ -20,8 +17,6 @@ function Core.Framework.Notify(src, message, type)
     end
 end
 
----@param src number
----@return string | nil
 function Core.Framework.GetPlayerIdentifier(src)
     local src = src or source
     local xPlayer = ESX.GetPlayerFromId(src)
@@ -29,8 +24,6 @@ function Core.Framework.GetPlayerIdentifier(src)
     return xPlayer.getIdentifier()
 end
 
----@param src number
----@return string, string
 function Core.Framework.GetPlayerJob(src)
     local src = src or source
     local xPlayer = ESX.GetPlayerFromId(src)
@@ -38,8 +31,6 @@ function Core.Framework.GetPlayerJob(src)
     return xPlayer.getJob().name, xPlayer.getJob().label
 end
 
----@param src number
----@return number, string
 function Core.Framework.GetPlayerJobGrade(src)
     local src = src or source
     local xPlayer = ESX.GetPlayerFromId(src)
@@ -47,9 +38,6 @@ function Core.Framework.GetPlayerJobGrade(src)
     return xPlayer.getJob().grade, xPlayer.getJob().grade_label
 end
 
----@param src number
----@param account string
----@return number
 function Core.Framework.GetAccountBalance(src, account)
     local src = src or source
     local xPlayer = ESX.GetPlayerFromId(src)
@@ -57,9 +45,6 @@ function Core.Framework.GetAccountBalance(src, account)
     return xPlayer.getAccount(account).money
 end
 
----@param src number
----@param account string
----@param amount number
 function Core.Framework.AddAccountBalance(src, account, amount)
     local src = src or source
     local xPlayer = ESX.GetPlayerFromId(src)
@@ -67,9 +52,6 @@ function Core.Framework.AddAccountBalance(src, account, amount)
     xPlayer.addAccountMoney(account, amount)
 end
 
----@param src number
----@param account string
----@param amount number
 function Core.Framework.RemoveAccountBalance(src, account, amount)
     local src = src or source
     local xPlayer = ESX.GetPlayerFromId(src)
@@ -77,8 +59,6 @@ function Core.Framework.RemoveAccountBalance(src, account, amount)
     xPlayer.removeAccountMoney(account, amount)
 end
 
----@param item string
----@param cb function
 function Core.Framework.RegisterUsableItem(item, cb)
     ESX.RegisterUsableItem(item, cb)
 end

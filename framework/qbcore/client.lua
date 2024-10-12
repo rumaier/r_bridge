@@ -6,8 +6,6 @@ local QBCore = exports['qb-core']:GetCoreObject()
 
 Core.Framework = {}
 
----@param message string
----@param type string
 function Core.Framework.Notify(message, type)
     local resource = Cfg.Notification or 'default'
     if resource == 'default' then
@@ -19,14 +17,11 @@ function Core.Framework.Notify(message, type)
     end
 end
 
----@return string, string
 function Core.Framework.GetPlayerName()
     local playerData = QBCore.Functions.GetPlayerData()
     return playerData.charinfo.firstname, playerData.charinfo.lastname
 end
 
----@param wear boolean
----@param outfits table
 function Core.Framework.ToggleOutfit(wear, outfits)
     if wear then
         local gender = QBCore.Functions.GetPlayerData().charinfo

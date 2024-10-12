@@ -2,7 +2,6 @@ Core.Carlock = {}
 
 Core.Info.Carlock = Cfg.Carlock or nil
 
----@param vehicle number
 function Core.Carlock.GiveKeys(vehicle)
     if not Cfg.CarLock then return end
     local plate = GetVehicleNumberPlateText(vehicle)

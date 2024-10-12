@@ -2,7 +2,6 @@ Core.Dispatch = {}
 
 Core.Info.Dispatch = Cfg.Dispatch or nil
 
----@param jobs string | table
 function Core.Dispatch.TriggerDispatch(jobs)
     if Cfg.Dispatch == 'linden_outlawalert' then
         local data = {displayCode = '10-66', description = 'Suspicious Persons', isImportant = 0, recipientList = jobs, length = '10000', infoM = 'fa-info-circle', info = 'Possible narcotic sales reported in the area.'}

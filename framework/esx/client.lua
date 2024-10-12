@@ -5,8 +5,6 @@ local ESX = exports["es_extended"]:getSharedObject()
 
 Core.Framework = {}
 
----@param message string
----@param type string
 function Core.Framework.Notify(message, type)
     local resource = Cfg.Notification or 'default'
     if resource == 'default' then
@@ -18,13 +16,10 @@ function Core.Framework.Notify(message, type)
     end
 end
 
----@return string, string
 function Core.Framework.GetPlayerName()
     return ESX.PlayerData.firstName, ESX.PlayerData.lastName
 end
 
----@param wear boolean
----@param outfits table
 function Core.Framework.ToggleOutfit(wear, outfits)
     if wear then
         ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)

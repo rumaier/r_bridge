@@ -5,25 +5,14 @@ local targetZones = {}
 
 Core.Target = {}
 
----@param entities string | table
----@param options table
 function Core.Target.AddLocalEntity(entities, options)
     ox_target:addLocalEntity(entities, options)
 end
 
----@param models string | table
----@param options table
 function Core.Target.AddModel(models, options)
     ox_target:addModel(models, options)
 end
 
----@param name string
----@param coords table |vector3
----@param size table | vector3
----@param heading number
----@param options table
----@param debug boolean
----@return number | nil
 function Core.Target.AddBoxZone(name, coords, size, heading, options, debug)
     local target = ox_target:addBoxZone({
         coords = coords,
@@ -36,18 +25,14 @@ function Core.Target.AddBoxZone(name, coords, size, heading, options, debug)
     return target
 end
 
----@param entity number
 function Core.Target.RemoveLocalEntity(entity)
     ox_target:removeLocalEntity(entity)
 end
 
----@param model number
 function Core.Target.RemoveModel(model)
     ox_target:removeModel(model)
 end
 
----@param id number
----@param name string
 function Core.Target.RemoveZone(id, name)
     ox_target:removeZone(id)
     for i = 1, #targetZones do

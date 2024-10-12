@@ -4,12 +4,10 @@ Core.Info.Inventory = 'codem-inventory'
 
 Core.Inventory = {}
 
----@param id number
 function Core.Inventory.OpenStash(id)
     -- does not exist in codem-inventory
 end
 
----@param item string
 function Core.Inventory.GetItemInfo(item)
     local items = exports['codem-inventory']:GetItemList()
     for _, itemInfo in pairs(items) do
