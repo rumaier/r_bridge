@@ -24,6 +24,17 @@ function Core.Framework.GetPlayerIdentifier(src)
     return xPlayer.getIdentifier()
 end
 
+function Core.Framework.GetPlayerName(src)
+    local src = src or source
+    local xPlayer = ESX.GetPlayerFromId(src)
+    if not xPlayer then return end
+    return xPlayer.variables.firstName, xPlayer.variables.lastName
+end
+
+RegisterCommand('test', function()
+    print(Core.Framework.GetPlayerName(1))
+end, false)
+
 function Core.Framework.GetPlayerJob(src)
     local src = src or source
     local xPlayer = ESX.GetPlayerFromId(src)
