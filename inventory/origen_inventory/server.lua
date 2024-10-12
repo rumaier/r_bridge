@@ -5,10 +5,6 @@ local origen_inventory = exports.origen_inventory
 
 Core.Inventory = {}
 
-RegisterCommand('test', function()
-    print(json.encode(Core.Inventory.GetItemInfo('water_bottle')))
-end, false)
-
 ---@param src number
 ---@param item string
 ---@param count number
