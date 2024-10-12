@@ -5,9 +5,6 @@ local QBox = exports.qbx_core
 
 Core.Framework = {}
 
----@param src number
----@param message string
----@param type string
 function Core.Framework.Notify(src, message, type)
     local src = src or source
     local resource = Cfg.Notification
@@ -20,8 +17,6 @@ function Core.Framework.Notify(src, message, type)
     end
 end
 
----@param src number
----@return string | nil
 function Core.Framework.GetPlayerIdentifier(src)
     local src = src or source
     local playerData = QBox:GetPlayer(src).PlayerData
@@ -29,8 +24,13 @@ function Core.Framework.GetPlayerIdentifier(src)
     return playerData.citizenid
 end
 
----@param src number
----@return string, string
+function Core.Framework.GetPlayerName(src)
+    local src = src or source
+    local playerData = QBox:GetPlayer(src).PlayerData
+    if not playerData then return end
+    return playerData.charinfo.firstname, playerData.charinfo.lastname
+end
+
 function Core.Framework.GetPlayerJob(src)
     local src = src or source
     local playerData = QBox:GetPlayer(src).PlayerData
@@ -38,8 +38,6 @@ function Core.Framework.GetPlayerJob(src)
     return playerData.job.name, playerData.job.label
 end
 
----@param src number
----@return number, string
 function Core.Framework.GetPlayerJobGrade(src)
     local src = src or source
     local playerData = QBox:GetPlayer(src).PlayerData
@@ -47,9 +45,6 @@ function Core.Framework.GetPlayerJobGrade(src)
     return playerData.job.grade.level, playerData.job.grade.name
 end
 
----@param src number
----@param account string
----@return number
 function Core.Framework.GetAccountBalance(src, account)
     local src = src or source
     local playerData = QBox:GetPlayer(src).PlayerData
@@ -58,9 +53,6 @@ function Core.Framework.GetAccountBalance(src, account)
     return playerData.money[account]
 end
 
----@param src number
----@param account string
----@param amount number
 function Core.Framework.AddAccountBalance(src, account, amount)
     local src = src or source
     local player = QBox:GetPlayer(src)

@@ -25,6 +25,13 @@ function Core.Framework.GetPlayerIdentifier(src)
     return playerData.citizenid
 end
 
+function Core.Framework.GetPlayerName(src)
+    local src = src or source
+    local playerData = QBCore.Functions.GetPlayer(src).PlayerData
+    if not playerData then return end
+    return playerData.charinfo.firstname, playerData.charinfo.lastname
+end
+
 function Core.Framework.GetPlayerJob(src)
     local src = src or source
     local playerData = QBCore.Functions.GetPlayer(src).PlayerData
