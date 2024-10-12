@@ -69,10 +69,8 @@ function Core.Inventory.GetItemCount(src, item, metadata)
     else
         local items = exports['codem-inventory']:GetInventory(nil, src)
         for _, itemInfo in pairs(items) do
-            if itemInfo.name == item then
-                if itemInfo.info == metadata then
-                    return itemInfo.amount
-                end
+            if itemInfo.name == item and itemInfo.info == metadata then
+                return itemInfo.amount
             end
         end
     end
@@ -83,7 +81,13 @@ end
 ---@return table
 function Core.Inventory.GetInventoryItems(src)
     local src = src or source
-    return exports['codem-inventory']:GetInventory(nil, src)
+    local items = exports['codem-inventory']:GetInventory(nil, src)
+    for _, itemInfo in pairs(items) do
+        itemInfo.count = itemInfo.amount
+        itemInfo.metadata = itemInfo.info
+        itemInfo.stack = not itemInfo.unique
+    end
+    return items
 end
 
 ---@param src number
