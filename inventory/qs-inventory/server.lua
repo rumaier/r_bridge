@@ -7,7 +7,7 @@ Core.Inventory = {}
 ---@param src number
 ---@param item string
 ---@param count number
----@param metadata table
+---@param metadata table | nil
 ---@return boolean
 function Core.Inventory.AddItem(src, item, count, metadata)
     local src = src or source
@@ -17,8 +17,8 @@ end
 ---@param src number
 ---@param item string
 ---@param count number
----@param metadata table
----@return boolean
+---@param metadata table | nil
+---@return boolean | nil
 function Core.Inventory.RemoveItem(src, item, count, metadata)
     local src = src or source
     if metadata ~= nil then
@@ -35,7 +35,7 @@ end
 
 ---@param src number
 ---@param item string
----@param metadata table
+---@param metadata table | nil
 ---@return table | nil
 function Core.Inventory.GetItem(src, item, metadata)
     local src = src or source
@@ -44,7 +44,7 @@ function Core.Inventory.GetItem(src, item, metadata)
         if itemInfo.name == item then
             itemInfo.count = itemInfo.amount
             itemInfo.metadata = itemInfo.info
-            itemInfo.stack = itemInfo.unique
+            itemInfo.stack = not itemInfo.unique
             return itemInfo
         end
     end
@@ -52,7 +52,7 @@ end
 
 ---@param src number
 ---@param item string
----@param metadata table
+---@param metadata table | nil
 ---@return number
 function Core.Inventory.GetItemCount(src, item, metadata)
     local src = src or source

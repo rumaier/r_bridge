@@ -1,6 +1,7 @@
-if GetResourceState('tgiann-inventory') ~= 'started' then return end
+if GetResourceState('origen_inventory') ~= 'started' then return end
 
-Core.Info.Inventory = 'tgiann-inventory'
+Core.Info.Inventory = 'origen_inventory'
+local ox_inventory = exports.ox_inventory
 
 Core.Inventory = {}
 
@@ -10,9 +11,7 @@ Core.Inventory = {}
 ---@param metadata table | nil
 ---@return boolean
 function Core.Inventory.AddItem(src, item, count, metadata)
-    local src = src or source
-    local action = exports['tgiann-inventory']:AddItem(src, item, count, metadata)
-    return (action.itemAddRemoveLog == 'added')
+    -- TODO:
 end
 
 ---@param src number
@@ -21,21 +20,15 @@ end
 ---@param metadata table | nil
 ---@return boolean | nil
 function Core.Inventory.RemoveItem(src, item, count, metadata)
-    local src = src or source
-    local action = exports['tgiann-inventory']:RemoveItem(src, item, count, nil, metadata)
-    return action
-end 
+    -- TODO:
+end
 
 ---@param src number
 ---@param item string
 ---@param metadata table | nil
 ---@return table | nil
 function Core.Inventory.GetItem(src, item, metadata)
-    local src = src or source
-    local item = exports['tgiann-inventory']:GetItemByName(src, item, metadata)
-    item.count = item.amount
-    item.metadata = item.info
-    return item
+    -- TODO:
 end
 
 ---@param src number
@@ -43,16 +36,13 @@ end
 ---@param metadata table | nil
 ---@return number
 function Core.Inventory.GetItemCount(src, item, metadata)
-    local src = src or source
-    local item = exports['tgiann-inventory']:GetItemByName(src, item, metadata)
-    return item.amount or 0
+    -- TODO:
 end
 
 ---@param src number
 ---@return table
 function Core.Inventory.GetInventoryItems(src)
-    local src = src or source
-    return exports['tgiann-inventory']:GetPlayerItems(src)
+    -- TODO:
 end
 
 ---@param src number
@@ -60,8 +50,7 @@ end
 ---@param count number
 ---@return boolean
 function Core.Inventory.CanCarryItem(src, item, count)
-    local src = src or source
-    return exports["tgiann-inventory"]:CanCarryItem(src, item, count)
+    -- TODO:
 end
 
 ---@param id number
@@ -71,18 +60,13 @@ end
 ---@param owner string
 ---@return boolean | number | nil
 function Core.Inventory.RegisterStash(id, label, slots, weight, owner)
-    exports["tgiann-inventory"]:CreateCustomStashWithItem(id, {})
+    -- TODO:
 end
 
 ---@param item string
 ---@return table | nil
 function Core.Inventory.GetItemInfo(item)
-    local itemsList = exports['tgiann-inventory']:GetItemList()
-    for _, itemData in pairs(itemsList) do
-        if itemData.name == item then
-            return itemData
-        end
-    end
+    -- TODO:
 end
 
 ---@param src number
@@ -90,6 +74,5 @@ end
 ---@param slot number
 ---@param metadata table
 function Core.Inventory.SetMetadata(src, item, slot, metadata)
-    local src = src or source
-    exports["tgiann-inventory"]:UpdateItemMetadata(src, item, slot, metadata)
+    -- TODO:
 end
