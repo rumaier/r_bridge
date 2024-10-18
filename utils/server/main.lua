@@ -37,9 +37,6 @@ AddEventHandler('onResourceStart', function(resource)
         if Cfg.Carlock then
             print('Carlock: ' .. Cfg.Carlock)
         end
-        if Cfg.Dispatch then
-            print('Dispatch: ' .. Cfg.Dispatch)
-        end
         print('------------------------------')
         checkVersion()
     end
