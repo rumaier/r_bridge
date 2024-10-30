@@ -4,6 +4,16 @@ local targetZones = {}
 
 Core.Target = {}
 
+function Core.Target.AddGlobalPlayer(options)
+    for k, v in pairs(options) do
+        options[k].action = v.onSelect
+    end
+    exports['qb-target']:AddGlobalPlayer({
+        options = options, 
+        distance = 1.5
+    })
+end
+
 function Core.Target.AddLocalEntity(entities, options)
     for k, v in pairs(options) do
         options[k].action = v.onSelect
@@ -39,6 +49,10 @@ function Core.Target.AddBoxZone(name, coords, size, heading, options, debug)
         distance = 1.5,
     })
     table.insert(targetZones, { name = name, creator = GetInvokingResource() })
+end
+
+function Core.Target.RemoveGlobalPlayer()
+    exports['qb-target']:RemoveGlobalPlayer()
 end
 
 function Core.Target.RemoveLocalEntity(entity)
