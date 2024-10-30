@@ -10,7 +10,7 @@ function Core.Target.AddGlobalPlayer(options)
     end
     exports['qb-target']:AddGlobalPlayer({
         options = options, 
-        distance = 1.5
+        distance = options.distance or 1.5
     })
 end
 
@@ -20,7 +20,7 @@ function Core.Target.AddLocalEntity(entities, options)
     end
     exports['qb-target']:AddTargetEntity(entities, {
         options = options,
-        distance = 1.5
+        distance = options.distance or 1.5
     })
 end
 
@@ -30,7 +30,7 @@ function Core.Target.AddModel(models, options)
     end
     exports['qb-target']:AddTargetModel(models, {
         options = options,
-        distance = 1.5, 
+        distance = options.distance or 1.5, 
     })
 end
 
@@ -46,7 +46,7 @@ function Core.Target.AddBoxZone(name, coords, size, heading, options, debug)
         maxZ = coords.z + (size.x * 0.5),
     }, {
         options = options,
-        distance = 1.5,
+        distance = options.distance or 1.5,
     })
     table.insert(targetZones, { name = name, creator = GetInvokingResource() })
 end
