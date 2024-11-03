@@ -34,13 +34,13 @@ function Core.Target.AddModel(models, options)
     })
 end
 
-function Core.Target.AddBoxZone(name, coords, size, heading, options, debug)
+function Core.Target.AddBoxZone(name, coords, size, heading, options)
     for k, v in pairs(options) do
         options[k].action = v.onSelect
     end
     exports['qb-target']:AddBoxZone(name, coords, size.x, size.y, {
         name = name,
-        debugPoly = debug or Cfg.Debug,
+        debugPoly = Cfg.Debug,
         heading = heading,
         minZ = coords.z - (size.x * 0.5),
         maxZ = coords.z + (size.x * 0.5),

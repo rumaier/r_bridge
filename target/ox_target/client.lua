@@ -17,12 +17,12 @@ function Core.Target.AddModel(models, options)
     ox_target:addModel(models, options)
 end
 
-function Core.Target.AddBoxZone(name, coords, size, heading, options, debug)
+function Core.Target.AddBoxZone(name, coords, size, heading, options)
     local target = ox_target:addBoxZone({
         coords = coords,
         size = size,
         rotation = heading,
-        debug = debug or Cfg.Debug,
+        debug = Cfg.Debug,
         options = options,
     })
     table.insert(targetZones, { id = target, creator = GetInvokingResource() })
