@@ -20,7 +20,7 @@ body {
 
 .help-text {
     display: block;
-    opacity: 1;
+    opacity: 0;
     transition: all ease-in-out 0.2s;
     position: absolute;
     top: 1%;
@@ -41,7 +41,7 @@ body {
 
 .text-ui {
     display: flex;
-    opacity: 1;
+    opacity: 0;
     align-items: center; 
     justify-content: center; 
     transition: all ease-in-out 0.2s;
