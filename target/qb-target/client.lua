@@ -63,11 +63,11 @@ function Core.Target.RemoveModel(model)
     exports['qb-target']:RemoveTargetModel(model)
 end
 
-function Core.Target.RemoveZone(id, name)
-    exports['qb-target']:RemoveZone(name)
-    for i = 1, #targetZones do
-        if targetZones[i] == name then
-            table.remove(targetZones, i)
+function Core.Target.RemoveZone(name)
+    for _, data in pairs(targetZones) do
+        if data.name == name then
+            exports['qb-target']:RemoveZone(name)
+            table.remove(targetZones, _)
             break
         end
     end

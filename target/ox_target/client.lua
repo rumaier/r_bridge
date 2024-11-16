@@ -25,7 +25,7 @@ function Core.Target.AddBoxZone(name, coords, size, heading, options)
         debug = Cfg.Debug,
         options = options,
     })
-    table.insert(targetZones, { id = target, creator = GetInvokingResource() })
+    table.insert(targetZones, { name = name, id = target, creator = GetInvokingResource() })
     return target
 end
 
@@ -41,11 +41,11 @@ function Core.Target.RemoveModel(model)
     ox_target:removeModel(model)
 end
 
-function Core.Target.RemoveZone(id, name)
-    ox_target:removeZone(id)
-    for i = 1, #targetZones do
-        if targetZones[i].id == id then
-            table.remove(targetZones, i)
+function Core.Target.RemoveZone(name)
+    for _, data in pairs(targetZones) do
+        if data.name == name then
+            ox_target:removeZone(data.id)
+            table.remove(targetZones, _)
             break
         end
     end
