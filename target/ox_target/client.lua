@@ -57,6 +57,7 @@ AddEventHandler('onResourceStop', function(resource)
         for _, target in pairs(targetZones) do
             if target.creator == resource then
                 ox_target:removeZone(target.id)
+                table.remove(targetZones, _)
                 removed = removed + 1
             end
         end
