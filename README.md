@@ -4,7 +4,7 @@
 
 ## Documentation
 
-For documentation, you can visit the [r_scripts documentation](https://r-scripts-1.gitbook.io/r_scripts-docs./) Gitbook.
+For documentation, you can visit the [r_scripts documentation](https://r-scripts-1.gitbook.io/r_scripts-docs./).
 
 ## Support
 
