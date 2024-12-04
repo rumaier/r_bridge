@@ -14,7 +14,6 @@
 - **Frameworks**: ESX, QBCore & QBox
 - **Inventories**: ox_inventory, qb-inventory, qs-inventory, ps-inventory & tgiann-inventory
 - **Target Resources**: ox_target & qb-target
-- **Dispatch Resources**: linden_outlawalert, ps-dispatch, cd_dispatch, & rcore_dispatch
 
 ## Support
 
