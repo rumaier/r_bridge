@@ -4,11 +4,11 @@
 
 ## Documentation
 
-[Gitbook](https://r-scripts-1.gitbook.io/r_scripts-docs./free-resources/r_bridge).
+[Gitbook](https://r-scripts-1.gitbook.io/r_scripts-docs./free-resources/r_bridge)
 
 ## Support
 
-[Discord](https://discord.gg/r-scripts).
+[Discord](https://discord.gg/r-scripts)
 
 ## License
 
