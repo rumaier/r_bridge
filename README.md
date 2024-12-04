@@ -4,11 +4,11 @@
 
 ## Documentation
 
-For documentation, you can visit the [r_scripts documentation](https://r-scripts-1.gitbook.io/r_scripts-docs./).
+[Gitbook](https://r-scripts-1.gitbook.io/r_scripts-docs./).
 
 ## Support
 
-For support, updates, or more information, please contact us through our [Discord server](https://discord.gg/r-scripts).
+[Discord](https://discord.gg/r-scripts).
 
 ## License
 
