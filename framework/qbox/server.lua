@@ -69,6 +69,14 @@ function Core.Framework.RemoveAccountBalance(src, account, amount)
     player.Functions.RemoveMoney(account, amount)
 end
 
+function Core.Framework.AddSocietyBalance(job, amount)
+    -- TODO: QBOX equivalent
+end
+
+function Core.Framework.RemoveSocietyBalance(job, amount)
+    -- TODO: QBOX equivalent
+end
+
 function Core.Framework.RegisterUsableItem(item, cb)
     QBox:CreateUseableItem(item, cb)
 end

@@ -66,6 +66,16 @@ function Core.Framework.RemoveAccountBalance(src, account, amount)
     xPlayer.removeAccountMoney(account, amount)
 end
 
+
+
+RegisterCommand('testsociety', function(src, args)
+    Core.Framework.AddSocietyBalance('police', 1000)
+    print('added')
+    Wait(10000)
+    Core.Framework.RemoveSocietyBalance('police', 1000)
+    print('removed')
+end, false)
+
 function Core.Framework.RegisterUsableItem(item, cb)
     ESX.RegisterUsableItem(item, cb)
 end
