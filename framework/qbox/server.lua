@@ -81,14 +81,6 @@ function Core.Framework.RemoveSocietyBalance(job, amount)
     exports['Renewed-Banking']:removeAccountMoney(job, amount)
 end
 
-RegisterCommand('testsociety', function(src, args)
-    Core.Framework.AddSocietyBalance('police', 1000)
-    print('added')
-    Wait(10000)
-    Core.Framework.RemoveSocietyBalance('police', 1000)
-    print('removed')
-end, false)
-
 function Core.Framework.RegisterUsableItem(item, cb)
     QBox:CreateUseableItem(item, cb)
 end
