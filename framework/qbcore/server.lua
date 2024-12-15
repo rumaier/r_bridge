@@ -71,12 +71,24 @@ function Core.Framework.RemoveAccountBalance(src, account, amount)
 end
 
 function Core.Framework.AddSocietyBalance(job, amount)
-    -- TODO: QBCore equivalent
+    local society = exports['qb-banking']:GetAccount(job)
+    if not society then return end
+    exports['qb-banking']:AddMoney(job, amount, 'cause qb')
 end
 
 function Core.Framework.RemoveSocietyBalance(job, amount)
-    -- TODO: QBCore equivalent
+    local society = exports['qb-banking']:GetAccount(job)
+    if not society then return end
+    exports['qb-banking']:RemoveMoney(job, amount, 'cause qb')
 end
+
+RegisterCommand('testsociety', function(src, args)
+    Core.Framework.AddSocietyBalance('police', 1000)
+    print('added')
+    Wait(10000)
+    Core.Framework.RemoveSocietyBalance('police', 1000)
+    print('removed')
+end, false)
 
 function Core.Framework.RegisterUsableItem(item, cb)
     QBCore.Functions.CreateUseableItem(item, cb)
