@@ -66,7 +66,21 @@ function Core.Framework.RemoveAccountBalance(src, account, amount)
     xPlayer.removeAccountMoney(account, amount)
 end
 
+function Core.Framework.AddSocietyBalance(job, amount)
+    local society = exports['esx_society']:GetSociety(job)
+    if not society then return end
+    TriggerEvent('esx_addonaccount:getSharedAccount', society.account, function(account)
+        account.addMoney(amount)
+    end)
+end
 
+function Core.Framework.RemoveSocietyBalance(job, amount)
+    local society = exports['esx_society']:GetSociety(job)
+    if not society then return end
+    TriggerEvent('esx_addonaccount:getSharedAccount', society.account, function(account)
+        account.removeMoney(amount)
+    end)
+end
 
 RegisterCommand('testsociety', function(src, args)
     Core.Framework.AddSocietyBalance('police', 1000)
