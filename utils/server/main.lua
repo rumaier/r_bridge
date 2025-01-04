@@ -1,18 +1,23 @@
-local function checkVersion()
-    if not Cfg.VersionCheck then return end
-    local url = 'https://api.github.com/repos/rumaier/r_bridge/releases/latest'
-    local current = GetResourceMetadata(GetCurrentResourceName(), 'version', 0)
-    PerformHttpRequest(url, function(err, text, headers)
+local function checkBridgeVersion()
+    Core.VersionCheck(GetCurrentResourceName())
+    SetTimeout(360000, checkBridgeVersion)
+end
+
+function Core.VersionCheck(resource)
+    local url = 'https://api.github.com/repos/r-scripts-versions/' .. resource .. '/releases/latest'
+    local current = GetResourceMetadata(resource, 'version', 0)
+    PerformHttpRequest(url, function(err, txt, head)
         if err == 200 then
-            local data = json.decode(text)
-            local latest = data.tag_name
+            local data = json.decode(txt)
+            local latest = data.tad_name
             if latest ~= current then
-                print('[^3WARNING^0] Please update '.. GetCurrentResourceName() ..' to the latest version from Github')
-                print('[^3WARNING^0] https://github.com/rumaier/r_bridge/releases/latest ^0')
+                print('[^3WARNING^0] Please update ' .. resource .. ' to its latest version.')
+                print('[^3WARNING^0] Current: ' .. current .. '')
+                print('[^3WARNING^0] Latest: ' .. latest .. '')
+                print('[^3WARNING^0] https://discord.gg/rn8sYuZfkd')
             end
         end
-    end, 'GET', '', { ['Content-Type'] = 'application/json' })
-    SetTimeout(3600000, checkVersion)
+    end)
 end
 
 AddEventHandler('onResourceStart', function(resource)
@@ -38,6 +43,6 @@ AddEventHandler('onResourceStart', function(resource)
             print('Carlock: ' .. Cfg.Carlock)
         end
         print('------------------------------')
-        checkVersion()
+        checkBridgeVersion()
     end
 end)
