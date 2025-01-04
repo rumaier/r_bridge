@@ -9,7 +9,7 @@ function Core.VersionCheck(resource)
     PerformHttpRequest(url, function(err, txt, head)
         if err == 200 then
             local data = json.decode(txt)
-            local latest = data.tad_name
+            local latest = data.tag_name
             if latest ~= current then
                 print('[^3WARNING^0] Please update ' .. resource .. ' to its latest version.')
                 print('[^3WARNING^0] Current: ' .. current .. '')
