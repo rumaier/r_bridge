@@ -17,7 +17,9 @@ function Core.Framework.Notify(message, type)
 end
 
 function Core.Framework.GetPlayerName()
-    return ESX.PlayerData.firstName, ESX.PlayerData.lastName
+    local first = ESX.PlayerData.firstName
+    local last = ESX.PlayerData.lastName
+    return first, last
 end
 
 function Core.Framework.ToggleOutfit(wear, outfits)
