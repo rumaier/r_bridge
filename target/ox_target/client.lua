@@ -5,6 +5,10 @@ local targetZones = {}
 
 Core.Target = {}
 
+function Core.Target.AddGlobalPeds(options)
+    ox_target:addGlobalPed(options)
+end
+
 function Core.Target.AddGlobalPlayer(options)
     ox_target:addGlobalPlayer(options)
 end
@@ -27,6 +31,10 @@ function Core.Target.AddBoxZone(name, coords, size, heading, options)
     })
     table.insert(targetZones, { name = name, id = target, creator = GetInvokingResource() })
     return target
+end
+
+function Core.Target.RemoveGlobalPeds()
+    ox_target:removeGlobalPed()
 end
 
 function Core.Target.RemoveGlobalPlayer()
