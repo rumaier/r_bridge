@@ -61,12 +61,12 @@ function Core.Target.AddBoxZone(name, coords, size, heading, options, drawPoly)
     table.insert(targetZones, { name = name, creator = GetInvokingResource() })
 end
 
-function Core.Target.RemoveGlobalPeds()
-    exports['qb-target']:RemoveGlobalPed()
+function Core.Target.RemoveGlobalPeds(name)
+    exports['qb-target']:RemoveGlobalPed(name)
 end
 
-function Core.Target.RemoveGlobalPlayer()
-    exports['qb-target']:RemoveGlobalPlayer()
+function Core.Target.RemoveGlobalPlayer(name)
+    exports['qb-target']:RemoveGlobalPlayer(name)
 end
 
 function Core.Target.RemoveLocalEntity(entity)

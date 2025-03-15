@@ -33,12 +33,12 @@ function Core.Target.AddBoxZone(name, coords, size, heading, options, drawPoly)
     return target
 end
 
-function Core.Target.RemoveGlobalPeds()
-    ox_target:removeGlobalPed()
+function Core.Target.RemoveGlobalPeds(name)
+    ox_target:removeGlobalPed(name)
 end
 
-function Core.Target.RemoveGlobalPlayer()
-    ox_target:removeGlobalPlayer()
+function Core.Target.RemoveGlobalPlayer(name)
+    ox_target:removeGlobalPlayer(name)
 end
 
 function Core.Target.RemoveLocalEntity(entity)
