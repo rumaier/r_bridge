@@ -18,11 +18,11 @@ function Core.Inventory.RemoveItem(src, item, count, metadata)
     if metadata ~= nil then
         local playerInv = QBCore.Functions.GetPlayer(src).PlayerData.items
         if not playerInv then return end
-        for _, item in pairs(playerInv) do
-            if lib.table.matches(item.info, metadata) then
-                local removed = exports['qb-inventory']:RemoveItem(src, item.name, count, item.slot)
+        for _, pItem in pairs(playerInv) do
+            if pItem.name == item.name and lib.table.matches(item.info, metadata) then
+                local removed = exports['qb-inventory']:RemoveItem(src, pItem.name, count, pItem.slot)
                 if not removed then return removed end
-                TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[item.name], 'remove', count)
+                TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[pItem.name], 'remove', count)
                 return removed
             end
         end

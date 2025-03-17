@@ -13,11 +13,9 @@ function Core.Inventory.RemoveItem(src, item, count, metadata)
     local src = src or source
     if metadata ~= nil then
         local items = exports['codem-inventory']:GetInventory(nil, src)
-        for _, itemInfo in pairs(items) do
-            if itemInfo.name == item then
-                if itemInfo.info == metadata then
-                    return exports['codem-inventory']:RemoveItem(src, item, count, itemInfo.slot)
-                end
+        for _, pItem in pairs(items) do
+            if pItem.name == item.name and lib.table.matches(item.info, metadata) then
+                return exports['codem-inventory']:RemoveItem(src, pItem.name, count, pItem.slot)
             end
         end
     end
