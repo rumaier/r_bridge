@@ -5,6 +5,10 @@ local origen_inventory = exports.origen_inventory
 
 Core.Inventory = {}
 
+function Core.Inventory.ImgPath()
+    return "nui://origen_inventory/html/images/%s.png"
+end
+
 ---@param id number
 function Core.Inventory.OpenStash(id)
     -- cant find anything for this in the origen_inventory documentation... PR if you know something I dont. 
