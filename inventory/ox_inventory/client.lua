@@ -5,6 +5,10 @@ local ox_inventory = exports.ox_inventory
 
 Core.Inventory = {}
 
+function Core.Inventory.ImgPath()
+    return "nui://ox_inventory/web/images/%s.png"
+end
+
 function Core.Inventory.OpenStash(id)
     ox_inventory:openInventory('stash', id)
 end

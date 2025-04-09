@@ -4,6 +4,10 @@ Core.Info.Inventory = 'qs-inventory'
 
 Core.Inventory = {}
 
+function Core.Inventory.ImgPath()
+    return "nui://qs-inventory/html/images/%s.png"
+end
+
 function Core.Inventory.OpenStash(id)
     exports['qs-inventory']:RegisterStash(id, 50, 50000)
 end

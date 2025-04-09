@@ -5,6 +5,10 @@ local QBCore = exports['qb-core']:GetCoreObject()
 
 Core.Inventory = {}
 
+function Core.Inventory.ImgPath()
+    return "nui://qb-inventory/html/images/%s.png"
+end
+
 function Core.Inventory.OpenStash(id)
     TriggerEvent("inventory:client:SetCurrentStash", id)
     TriggerServerEvent("inventory:server:OpenInventory", "stash", id, {

@@ -4,6 +4,10 @@ Core.Info.Inventory = 'codem-inventory'
 
 Core.Inventory = {}
 
+function Core.Inventory.ImgPath()
+    return "nui://codem-inventory/html/images/%s.png"
+end
+
 function Core.Inventory.OpenStash(id)
     -- does not exist in codem-inventory
 end
