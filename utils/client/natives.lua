@@ -34,9 +34,9 @@ function Core.Natives.SetGpsRoute(render, coords, color)
 end
 
 function Core.Natives.CreateProp(model, coords, heading, networked)
-    RequestModel(model)
-    while not HasModelLoaded(model) do Wait(10) end
-    local prop = CreateObject(model, coords.x, coords.y, coords.z, networked, false, false)
+    RequestModel(joaat(model))
+    while not HasModelLoaded(joaat(model)) do Wait(10) end
+    local prop = CreateObject(joaat(model), coords.x, coords.y, coords.z, networked, false, false)
     SetEntityHeading(prop, heading)
     SetModelAsNoLongerNeeded(model)
     return prop
