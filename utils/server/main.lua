@@ -1,6 +1,8 @@
 local function checkBridgeVersion()
-    Core.VersionCheck(GetCurrentResourceName())
-    SetTimeout(360000, checkBridgeVersion)
+    if Cfg.VersionCheck then
+        Core.VersionCheck(GetCurrentResourceName())
+        SetTimeout(360000, checkBridgeVersion)
+    end
 end
 
 function Core.VersionCheck(resource)
