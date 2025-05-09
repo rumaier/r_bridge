@@ -1,7 +1,11 @@
+local second = 1000
+local minute = second * 60
+local hour = minute * 60
+
 local function checkBridgeVersion()
     if Cfg.VersionCheck then
         Core.VersionCheck(GetCurrentResourceName())
-        SetTimeout(360000, checkBridgeVersion)
+        SetTimeout(1 * hour, checkBridgeVersion)
     end
 end
 
