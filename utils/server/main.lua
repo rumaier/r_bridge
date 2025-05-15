@@ -20,7 +20,7 @@ function Core.VersionCheck(resource)
                 print('[^3WARNING^0] Please update ' .. resource .. ' to its latest version.')
                 print('[^3WARNING^0] Current: ' .. current .. '')
                 print('[^3WARNING^0] Latest: ' .. latest .. '')
-                print('[^3WARNING^0] https://discord.gg/r-scripts')
+                print('[^3WARNING^0] https://discord.gg/rscripts')
             end
         end
     end)
