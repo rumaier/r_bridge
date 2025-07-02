@@ -30,3 +30,7 @@ function Core.Framework.ToggleOutfit(wear, outfits)
         TriggerServerEvent('qb-clothing:loadPlayerSkin')
     end
 end
+
+function Core.Framework.GetPlayerMetadata(meta)
+    return QBX.PlayerData.metadata[meta]
+end

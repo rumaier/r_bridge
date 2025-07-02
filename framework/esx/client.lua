@@ -36,3 +36,7 @@ function Core.Framework.ToggleOutfit(wear, outfits)
         end)
     end
 end
+
+function Core.Framework.GetPlayerMetadata(meta)
+    return ESX.GetPlayerData().metadata[meta]
+end

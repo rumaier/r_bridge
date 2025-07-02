@@ -33,3 +33,7 @@ function Core.Framework.ToggleOutfit(wear, outfits)
     end
 end
 
+function Core.Framework.GetPlayerMetadata(meta)
+    return QBCore.Functions.GetPlayerData().metadata[meta]
+end
+
