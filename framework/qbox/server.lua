@@ -69,6 +69,18 @@ function Core.Framework.RemoveAccountBalance(src, account, amount)
     player.Functions.RemoveMoney(account, amount)
 end
 
+function Core.Framework.SetPlayerMetadata(src, meta, value)
+    local player = QBox:GetPlayer(src)
+    if not player then return end
+    player.Functions.SetMetaData(meta, value)
+end
+
+function Core.Framework.GetPlayerMetadata(src, meta)
+    local player = QBox:GetPlayer(src)
+    if not player then return end
+    return player.PlayerData.metadata[meta] or nil
+end
+
 function Core.Framework.AddSocietyBalance(job, amount)
     local society = exports['Renewed-Banking']:getAccountMoney(job)
     if not society then return end

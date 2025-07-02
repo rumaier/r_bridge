@@ -66,6 +66,18 @@ function Core.Framework.RemoveAccountBalance(src, account, amount)
     xPlayer.removeAccountMoney(account, amount)
 end
 
+function Core.Framework.SetPlayerMetadata(src, meta, value)
+    local xPlayer = ESX.GetPlayerFromId(src)
+    if not xPlayer then return end
+    xPlayer.setMeta(meta, value)
+end
+
+function Core.Framework.GetPlayerMetadata(src, meta)
+    local xPlayer = ESX.GetPlayerFromId(src)
+    if not xPlayer then return end
+    return xPlayer.getMeta(meta) or nil
+end
+
 function Core.Framework.AddSocietyBalance(job, amount)
     local society = exports['esx_society']:GetSociety(job)
     if not society then return end
