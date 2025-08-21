@@ -11,7 +11,8 @@ version '2.0.0'
 
 shared_scripts {
   '@ox_lib/init.lua',
-  'init.lua'
+  'util/natives.lua',
+  'config.lua'
 }
 
 server_scripts {
@@ -19,11 +20,12 @@ server_scripts {
 }
 
 client_scripts {
-  'natives/client.lua',
+  'util/natives.lua',
   'framework/**/client.lua',
 }
 
 ui_page 'nui/build/index.html'
+
 files {
   'nui/build/index.html',
   'nui/build/**/*'

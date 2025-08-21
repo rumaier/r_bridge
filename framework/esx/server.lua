@@ -1,0 +1,84 @@
+if GetResourceState('es_extended') ~= 'started' then return end
+
+Core.Framework = {}
+Core.Framework.Current = 'ESX'
+
+local ESX = exports['es_extended']:getSharedObject()
+
+Core.Framework.GetPlayerIdentifier = function(src)
+    local xPlayer = ESX.GetPlayerFromId(src)
+    if not xPlayer then return end
+    local identifier = xPlayer.getIdentifier()
+    return identifier
+end
+
+Core.Framework.GetPlayerCharacterName = function(src)
+    local xPlayer = ESX.GetPlayerFromId(src)
+    if not xPlayer then return end
+    local firstName = xPlayer.variable.firstName or ''
+    local lastName = xPlayer.variable.lastName or ''
+    return { first = firstName, last = lastName }
+end
+
+Core.Framework.GetPlayerJob = function(src)
+    local xPlayer = ESX.GetPlayerFromId(src)
+    if not xPlayer then return end
+    local job = xPlayer.getJob()
+    return { name = job.name, label = job.label, grade = job.grade, gradeLabel = job.grade_label }
+end
+
+Core.Framework.GetPlayerMetadata = function(src, meta)
+    local xPlayer = ESX.GetPlayerFromId(src)
+    if not xPlayer then return end
+    local metadata = xPlayer.getMeta(meta)
+    return metadata
+end
+
+Core.Framework.SetPlayerMetadata = function(src, meta, value)
+    local xPlayer = ESX.GetPlayerFromId(src)
+    if not xPlayer then return end
+    xPlayer.setMeta(meta, value)
+end
+
+Core.Framework.GetAccountBalance = function(src, account)
+    local xPlayer = ESX.GetPlayerFromId(src)
+    if not xPlayer then return end
+    if account == 'cash' then account = 'money' end
+    local balance = xPlayer.getAccount(account).money
+    return balance
+end
+
+Core.Framework.AddAccountBalance = function(src, account, amount)
+    local xPlayer = ESX.GetPlayerFromId(src)
+    if not xPlayer then return end
+    if account == 'cash' then account = 'money' end
+    xPlayer.addAccountMoney(account, amount)
+end
+
+Core.Framework.RemoveAccountBalance = function(src, account, amount)
+    local xPlayer = ESX.GetPlayerFromId(src)
+    if not xPlayer then return end
+    if account == 'cash' then account = 'money' end
+    xPlayer.removeAccountMoney(account, amount)
+end
+
+Core.Framework.AddSocietyBalance = function(job, amount)
+    local society = exports['esx_society']:GetSociety(job)
+    if not society then return end
+    TriggerEvent('esx_addonaccount:getSharedAccount', society.account, function(account)
+        account.addMoney(amount)
+    end)
+end
+
+Core.Framework.RemoveSocietyBalance = function(job, amount)
+    local society = exports['esx_society']:GetSociety(job)
+    if not society then return end
+    TriggerEvent('esx_addonaccount:getSharedAccount', society.account, function(account)
+        account.removeMoney(amount)
+    end)
+end
+
+Core.Framework.RegisterUsableItem = function(item, cb)
+    if not item or not cb then return end
+    ESX.RegisterUsableItem(item, cb)
+end
