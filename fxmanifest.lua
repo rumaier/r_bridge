@@ -19,8 +19,8 @@ server_scripts {
 }
 
 client_scripts {
+  'natives/client.lua',
   'framework/**/client.lua',
-  'natives.lua'
 }
 
 ui_page 'nui/build/index.html'
