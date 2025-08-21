@@ -15,3 +15,18 @@ Core.Framework.GetPlayerMetadata = function(meta)
     local metadata = ESX.PlayerData.metadata[meta]
     return metadata
 end
+
+Core.Framework.ToggleOutfit = function(wear, outfits)
+    if wear then
+        ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
+            local gender = skin.sex
+            local outfit = gender == 1 and outfits.Female or outfits.Male
+            if not outfit then return end
+            TriggerEvent('skinchanger:loadClothes', skin, outfit)
+        end)
+    else
+        ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
+            TriggerEvent('skinchanger:loadSkin', skin)
+        end)
+    end
+end
