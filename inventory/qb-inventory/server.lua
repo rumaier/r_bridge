@@ -15,9 +15,9 @@ Core.Inventory.addItem = function(src, item, count, metadata)
 end
 
 local function removeMetadataItem(src, item, count, metadata)
-    local playerInventory = Core.Inventory.getPlayerInventory(src)
-    if not playerInventory then return false end
-    for _, i in pairs(playerInventory) do
+    local inventory = Core.Inventory.getPlayerInventory(src)
+    if not inventory then return false end
+    for _, i in pairs(inventory) do
         if i.name == item and lib.table.matches(i.metadata, metadata) then
             local success = QBInventory:RemoveItem(src, item, count, i.slot)
             if not success then return false end
@@ -25,6 +25,7 @@ local function removeMetadataItem(src, item, count, metadata)
             return true
         end
     end
+    return false
 end
 
 Core.Inventory.removeItem = function(src, item, count, metadata)
@@ -36,15 +37,15 @@ Core.Inventory.removeItem = function(src, item, count, metadata)
 end
 
 Core.Inventory.setItemMetadata = function(src, item, slot, metadata)
-    local removed = QBInventory:RemoveItem(src, item, 1, nil, metadata)
+    local removed = removeMetadataItem(src, item, 1, metadata)
     if not removed then return end
     QBInventory:AddItem(src, item, 1, nil, metadata)
 end
 
 Core.Inventory.getItem = function(src, item, metadata)
-    local playerInventory = Core.Inventory.getPlayerInventory(src)
-    if not playerInventory then return end
-    for _, v in pairs(playerInventory) do
+    local inventory = Core.Inventory.getPlayerInventory(src)
+    if not inventory then return end
+    for _, v in pairs(inventory) do
         if v.name == item and (not metadata or lib.table.matches(v.metadata, metadata)) then
             return NormalizeItem(v)
         end
