@@ -4,12 +4,12 @@ Core.Natives = {}
 
 local blips = {}
 
-local function saveBlip(blip, creator)
-    if not blips[creator] then blips[creator] = {} end
-    table.insert(blips[creator], blip)
+local function saveBlip(blip, resource)
+    if not blips[resource] then blips[resource] = {} end
+    table.insert(blips[resource], blip)
 end
 
-Core.Natives.CreateBlip = function(coords, sprite, color, scale, label, longRange)
+Core.Natives.createBlip = function(coords, sprite, color, scale, label, longRange)
     local blip = AddBlipForCoord(coords.x, coords.y, coords.z)
     SetBlipSprite(blip, sprite)
     SetBlipColour(blip, color)
@@ -22,7 +22,7 @@ Core.Natives.CreateBlip = function(coords, sprite, color, scale, label, longRang
     return blip
 end
 
-Core.Natives.RemoveBlip = function(blip)
+Core.Natives.removeBlip = function(blip)
     local resource = GetInvokingResource()
     if not blips.resource then return end
     for i, id in pairs(blips[resource]) do
@@ -41,7 +41,7 @@ AddEventHandler('onResourceStop', function(resource)
     blips[resource] = nil
 end)
 
-Core.Natives.SetGpsRoute = function(render, coords, color)
+Core.Natives.setGpsRoute = function(render, coords, color)
     if not render then SetGpsMultiRouteRender(false) return end
     ClearGpsMultiRoute()
     StartGpsMultiRoute(color, true, true)
@@ -51,7 +51,7 @@ end
 
 -- ENTITIES
 
-Core.Natives.CreateObject = function(model, coords, heading, networked)
+Core.Natives.createObject = function(model, coords, heading, networked)
     model = joaat(model)
     RequestModel(model)
     repeat Wait(0) until HasModelLoaded(model)
@@ -61,7 +61,7 @@ Core.Natives.CreateObject = function(model, coords, heading, networked)
     return object
 end
 
-Core.Natives.CreatePed = function(model, coords, heading, networked)
+Core.Natives.createPed = function(model, coords, heading, networked)
     model = joaat(model)
     RequestModel(model)
     repeat Wait(0) until HasModelLoaded(model)
@@ -70,7 +70,7 @@ Core.Natives.CreatePed = function(model, coords, heading, networked)
     return ped
 end
 
-Core.Natives.CreateVehicle = function(model, coords, heading, networked)
+Core.Natives.createVehicle = function(model, coords, heading, networked)
     model = joaat(model)
     RequestModel(model)
     repeat Wait(0) until HasModelLoaded(model)
@@ -79,7 +79,7 @@ Core.Natives.CreateVehicle = function(model, coords, heading, networked)
     return vehicle
 end
 
-Core.Natives.SetEntityProperties = function(entity, frozen, invincible, oblivious)
+Core.Natives.setEntityProperties = function(entity, frozen, invincible, oblivious)
     if not DoesEntityExist(entity) then return end
     FreezeEntityPosition(entity, frozen)
     SetEntityInvincible(entity, invincible)
@@ -88,7 +88,7 @@ end
 
 -- ANIMATIONS/PTFX
 
-Core.Natives.PlayAnimation = function(entity, dictionary, animation, duration, flag, playbackRate)
+Core.Natives.playAnimation = function(entity, dictionary, animation, duration, flag, playbackRate)
     if not DoesEntityExist(entity) then return end
     RequestAnimDict(dictionary)
     repeat Wait(0) until HasAnimDictLoaded(dictionary)
@@ -96,7 +96,7 @@ Core.Natives.PlayAnimation = function(entity, dictionary, animation, duration, f
     RemoveAnimDict(dictionary)
 end
 
-Core.Natives.TriggerParticleFx = function(coords, asset, effect, scale)
+Core.Natives.triggerParticleFx = function(coords, asset, effect, scale)
     RequestNamedPtfxAsset(asset)
     repeat Wait(0) until HasNamedPtfxAssetLoaded(asset)
     UseParticleFxAsset(asset)
@@ -104,7 +104,7 @@ Core.Natives.TriggerParticleFx = function(coords, asset, effect, scale)
     RemoveNamedPtfxAsset(asset)
 end
 
-Core.Natives.TriggerLoopedParticleFx = function(coords, asset, effect, scale, duration)
+Core.Natives.triggerLoopedParticleFx = function(coords, asset, effect, scale, duration)
     RequestNamedPtfxAsset(asset)
     repeat Wait(0) until HasNamedPtfxAssetLoaded(asset)
     UseParticleFxAsset(asset)

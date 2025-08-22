@@ -6,18 +6,18 @@ Core.Framework.Current = 'es_extended'
 
 local ESX = exports['es_extended']:getSharedObject()
 
-Core.Framework.GetCharacterName = function()
+Core.Framework.getCharacterName = function()
     local firstName = ESX.PlayerData.firstName or ''
     local lastName = ESX.PlayerData.lastName or ''
     return { first = firstName, last = lastName }
 end
 
-Core.Framework.GetPlayerMetadata = function(meta)
+Core.Framework.getPlayerMetadata = function(meta)
     local metadata = ESX.PlayerData.metadata[meta]
     return metadata
 end
 
-Core.Framework.ToggleOutfit = function(wear, outfits)
+Core.Framework.toggleOutfit = function(wear, outfits)
     if wear then
         ESX.TriggerServerCallback('esx_skin:getPlayerSkin', function(skin)
             local gender = skin.sex

@@ -6,14 +6,14 @@ Core.Framework.Current = 'es_extended'
 
 local ESX = exports['es_extended']:getSharedObject()
 
-Core.Framework.GetPlayerIdentifier = function(src)
+Core.Framework.getPlayerIdentifier = function(src)
     local xPlayer = ESX.GetPlayerFromId(src)
     if not xPlayer then return end
     local identifier = xPlayer.getIdentifier()
     return identifier
 end
 
-Core.Framework.GetPlayerCharacterName = function(src)
+Core.Framework.getPlayerCharacterName = function(src)
     local xPlayer = ESX.GetPlayerFromId(src)
     if not xPlayer then return end
     local firstName = xPlayer.variable.firstName or ''
@@ -21,27 +21,27 @@ Core.Framework.GetPlayerCharacterName = function(src)
     return { first = firstName, last = lastName }
 end
 
-Core.Framework.GetPlayerJob = function(src)
+Core.Framework.getPlayerJob = function(src)
     local xPlayer = ESX.GetPlayerFromId(src)
     if not xPlayer then return end
     local job = xPlayer.getJob()
     return { name = job.name, label = job.label, grade = job.grade, gradeLabel = job.grade_label }
 end
 
-Core.Framework.GetPlayerMetadata = function(src, meta)
+Core.Framework.getPlayerMetadata = function(src, meta)
     local xPlayer = ESX.GetPlayerFromId(src)
     if not xPlayer then return end
     local metadata = xPlayer.getMeta(meta)
     return metadata
 end
 
-Core.Framework.SetPlayerMetadata = function(src, meta, value)
+Core.Framework.setPlayerMetadata = function(src, meta, value)
     local xPlayer = ESX.GetPlayerFromId(src)
     if not xPlayer then return end
     xPlayer.setMeta(meta, value)
 end
 
-Core.Framework.GetAccountBalance = function(src, account)
+Core.Framework.getAccountBalance = function(src, account)
     local xPlayer = ESX.GetPlayerFromId(src)
     if not xPlayer then return end
     if account == 'cash' then account = 'money' end
@@ -49,21 +49,21 @@ Core.Framework.GetAccountBalance = function(src, account)
     return balance
 end
 
-Core.Framework.AddAccountBalance = function(src, account, amount)
+Core.Framework.addAccountBalance = function(src, account, amount)
     local xPlayer = ESX.GetPlayerFromId(src)
     if not xPlayer then return end
     if account == 'cash' then account = 'money' end
     xPlayer.addAccountMoney(account, amount)
 end
 
-Core.Framework.RemoveAccountBalance = function(src, account, amount)
+Core.Framework.removeAccountBalance = function(src, account, amount)
     local xPlayer = ESX.GetPlayerFromId(src)
     if not xPlayer then return end
     if account == 'cash' then account = 'money' end
     xPlayer.removeAccountMoney(account, amount)
 end
 
-Core.Framework.AddSocietyBalance = function(job, amount)
+Core.Framework.addSocietyBalance = function(job, amount)
     local society = exports['esx_society']:GetSociety(job)
     if not society then return end
     TriggerEvent('esx_addonaccount:getSharedAccount', society.account, function(account)
@@ -71,7 +71,7 @@ Core.Framework.AddSocietyBalance = function(job, amount)
     end)
 end
 
-Core.Framework.RemoveSocietyBalance = function(job, amount)
+Core.Framework.removeSocietyBalance = function(job, amount)
     local society = exports['esx_society']:GetSociety(job)
     if not society then return end
     TriggerEvent('esx_addonaccount:getSharedAccount', society.account, function(account)
@@ -79,7 +79,7 @@ Core.Framework.RemoveSocietyBalance = function(job, amount)
     end)
 end
 
-Core.Framework.RegisterUsableItem = function(item, cb)
+Core.Framework.registerUsableItem = function(item, cb)
     if not item or not cb then return end
     ESX.RegisterUsableItem(item, cb)
 end

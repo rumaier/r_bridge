@@ -6,14 +6,14 @@ Core.Framework.Current = 'qbx_core'
 
 local QBX = exports.qbx_core
 
-Core.Framework.GetPlayerIdentifier = function(src)
+Core.Framework.getPlayerIdentifier = function(src)
     local player = QBX.Functions.GetPlayer(src)
     if not player then return end
     local identifier = player.PlayerData.citizenid
     return identifier
 end
 
-Core.Framework.GetPlayerCharacterName = function(src)
+Core.Framework.getPlayerCharacterName = function(src)
     local player = QBX:GetPlayer(src)
     if not player then return end
     local playerData = player.PlayerData
@@ -22,7 +22,7 @@ Core.Framework.GetPlayerCharacterName = function(src)
     return { first = firstName, last = lastName }
 end
 
-Core.Framework.GetPlayerJob = function(src)
+Core.Framework.getPlayerJob = function(src)
     local player = QBX.Functions.GetPlayer(src)
     if not player then return end
     local playerData = player.PlayerData
@@ -30,7 +30,7 @@ Core.Framework.GetPlayerJob = function(src)
     return { name = job.name, label = job.label, grade = job.grade.level, gradeLabel = job.grade.name }
 end
 
-Core.Framework.GetPlayerMetadata = function(src, meta)
+Core.Framework.getPlayerMetadata = function(src, meta)
     local player = QBX.Functions.GetPlayer(src)
     if not player then return end
     local playerData = player.PlayerData
@@ -38,13 +38,13 @@ Core.Framework.GetPlayerMetadata = function(src, meta)
     return metadata
 end
 
-Core.Framework.SetPlayerMetadata = function(src, meta, value)
+Core.Framework.setPlayerMetadata = function(src, meta, value)
     local player = QBX.Functions.GetPlayer(src)
     if not player then return end
     player.Functions.SetMeta(meta, value)
 end
 
-Core.Framework.GetAccountBalance = function(src, account)
+Core.Framework.getAccountBalance = function(src, account)
     local player = QBX.Functions.GetPlayer(src)
     if not player then return end
     local playerData = player.PlayerData
@@ -53,33 +53,33 @@ Core.Framework.GetAccountBalance = function(src, account)
     return balance
 end
 
-Core.Framework.AddAccountBalance = function(src, account, amount)
+Core.Framework.addAccountBalance = function(src, account, amount)
     local player = QBX.Functions.GetPlayer(src)
     if not player then return end
     if account == 'money' then account = 'cash' end
     player.Functions.AddMoney(account, amount)
 end
 
-Core.Framework.RemoveAccountBalance = function(src, account, amount)
+Core.Framework.removeAccountBalance = function(src, account, amount)
     local player = QBX.Functions.GetPlayer(src)
     if not player then return end
     if account == 'money' then account = 'cash' end
     player.Functions.RemoveMoney(account, amount)
 end
 
-Core.Framework.AddSocietyBalance = function(job, amount)
+Core.Framework.addSocietyBalance = function(job, amount)
     local society = exports['Renewed-Banking']:getAccountMoney(job)
     if not society then return end
     exports['Renewed-Banking']:addAccountMoney(job, amount)
 end
 
-Core.Framework.RemoveSocietyBalance = function(job, amount)
+Core.Framework.removeSocietyBalance = function(job, amount)
     local society = exports['Renewed-Banking']:getAccountMoney(job)
     if not society then return end
     exports['Renewed-Banking']:removeAccountMoney(job, amount)
 end
 
-Core.Framework.RegisterUsableItem = function(item, cb)
+Core.Framework.registerUsableItem = function(item, cb)
     if not item or not cb then return end
     QBX:CreateUseableItem(item, cb)
 end
