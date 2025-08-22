@@ -1,3 +1,5 @@
+-- https://mrnewbscripts.tebex.io/ 🙏
+
 local function parseVersion(version)
     return version and version:match('%d+%.%d+%.%d+') or version
 end
