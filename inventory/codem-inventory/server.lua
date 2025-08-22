@@ -1,13 +1,13 @@
 ---@diagnostic disable: duplicate-set-field
-if GetResourceState('qs-inventory') ~= 'started' then return end
+if GetResourceState('codem-inventory') ~= 'started' then return end
 
 Core.Inventory = {}
-Core.Inventory.Current = 'qs-inventory'
+Core.Inventory.Current = 'codem-inventory'
 
-local QSInventory = exports['qs-inventory']
+local CodeMInventory = exports['codem-inventory']
 
 Core.Inventory.addItem = function(src, item, count, metadata)
-    local success = QSInventory:AddItem(src, item, count, nil, metadata)
+    local success = CodeMInventory:AddItem(src, item, count, nil, metadata)
     return success
 end
 
@@ -15,51 +15,54 @@ local function removeMetadataItem(src, item, count, metadata)
     local inventory = Core.Inventory.getPlayerInventory(src)
     if not inventory then return false end
     for _, i in pairs(inventory) do
-        if i.name == item and lib.table.matches(i.metadata, metadata) then
-            local success = QSInventory:RemoveItem(src, item, count, i.slot)
-            return success
+        if i.name == item and lib.table.matches(i.info, metadata) then
+            local success = CodeMInventory:RemoveItem(src, item, count, i.slot)
+            if not success then return false end
+            return true
         end
     end
-    return false
 end
 
 Core.Inventory.removeItem = function(src, item, count, metadata)
     if metadata then return removeMetadataItem(src, item, count, metadata) end
-    local success = QSInventory:RemoveItem(src, item, count)
+    local success = CodeMInventory:RemoveItem(src, item, count)
     return success
 end
 
 Core.Inventory.setItemMetadata = function(src, item, slot, metadata)
-    QSInventory:SetItemMetadata(src, slot, metadata)
+    CodeMInventory:SetItemMetadata(src, slot, metadata)
 end
 
 Core.Inventory.getItem = function(src, item, metadata)
     local inventory = Core.Inventory.getPlayerInventory(src)
     if not inventory then return end
     for _, v in pairs(inventory) do
-        if v.name == item and (not metadata or lib.table.matches(v.metadata, metadata)) then
+        if v.name == item and (not metadata or lib.table.matches(v.info, metadata)) then
             return NormalizeItem(v)
         end
     end
 end
 
 Core.Inventory.getItemCount = function(src, item)
-    local count = QSInventory:GetItemTotalAmount(src, item)
+    local count = CodeMInventory:GetItemsTotalAmount(src, item)
     return count
 end
 
 Core.Inventory.getPlayerInventory = function(src)
-    local inventory = QSInventory:GetInventory(src)
+    local inventory = CodeMInventory:GetInventory(src)
     inventory = NormalizeInventory(inventory)
     return inventory
 end
 
 Core.Inventory.canCarryItem = function(src, item, count)
-    local canCarry = QSInventory:CanCarryItem(src, item, count)
-    return canCarry
+    return true
 end
 
 Core.Inventory.getItemInfo = function(item)
-    local items = QSInventory:GetItemList()
-    return items[item]
+    local items = CodeMInventory:GetItemList()
+    for _, info in pairs(items) do
+        if info.name == item then
+            return info
+        end
+    end
 end
