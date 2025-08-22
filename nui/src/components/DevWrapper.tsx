@@ -1,6 +1,6 @@
 import type { FC, ReactNode } from "react";
-import { isEnvBrowser } from "../../utils/misc";
 import { BackgroundImage } from "@mantine/core";
+import { isEnvBrowser } from "../utils/misc";
 
 const imageSrc = 'https://i.postimg.cc/NjzPLRhf/image.png';
 

@@ -1,7 +1,7 @@
 import { createTheme } from "@mantine/core";
 
 const theme = createTheme({
-  primaryColor: 'violet',
+  primaryColor: 'dark',
   primaryShade: 6,
   autoContrast: true,
   luminanceThreshold: 0.45,
