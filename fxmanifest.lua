@@ -28,6 +28,7 @@ client_scripts {
   'framework/**/client.lua',
   'inventory/**/client.lua',
   'target/**/client.lua',
+  'interface/*.lua',
 }
 
 ui_page 'nui/build/index.html'
