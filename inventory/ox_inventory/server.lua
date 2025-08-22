@@ -25,8 +25,8 @@ Core.Inventory.getItem = function(src, item, metadata)
     return item
 end
 
-Core.Inventory.getItemCount = function(src, item, metadata)
-    local count = ox_inventory:GetItemCount(src, item, metadata, metadata and true or false)
+Core.Inventory.getItemCount = function(src, item)
+    local count = ox_inventory:GetItemCount(src, item)
     return count
 end
 
