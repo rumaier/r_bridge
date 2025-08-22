@@ -7,17 +7,17 @@ const HelpText: FC = () => {
 
   const [visible, { open, close }] = useDisclosure(false);
 
-  const [text, setText] = useState<string>('Follow the guard to the marked location and dig the hole');
+  const [text, setText] = useState<string>('');
 
-  useNuiEvent('helpText:show', (text: string) => {
+  useNuiEvent('helpText:show', (data: { text: string }) => {
     if (visible) close();
-    setText(text);
+    setText(data.text);
     open();
-  })
+  });
 
   useNuiEvent('helpText:hide', () => {
     if (visible) close();
-  })
+  });
 
   return (
     <Transition mounted={visible} transition='pop' duration={150} timingFunction='ease'>
@@ -32,7 +32,7 @@ const HelpText: FC = () => {
         >
           <Text
             fw={600}
-            fz='0.875rem'
+            fz='md'
             style={{ letterSpacing: '0.5px' }}
           >
             {text.toUpperCase()}
