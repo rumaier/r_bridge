@@ -11,17 +11,23 @@ version '2.0.0'
 
 shared_scripts {
   '@ox_lib/init.lua',
+  'util/init.lua',
   'util/natives.lua',
   'config.lua'
 }
 
 server_scripts {
+  'util/server.lua',
   'framework/**/server.lua',
+  'inventory/**/server.lua',
+  'target/**/server.lua',
 }
 
 client_scripts {
   'util/natives.lua',
   'framework/**/client.lua',
+  'inventory/**/client.lua',
+  'target/**/client.lua',
 }
 
 ui_page 'nui/build/index.html'
