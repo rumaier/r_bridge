@@ -31,7 +31,6 @@ const HelpText: FC = () => {
           style={transitionStyles}
         >
           <Text
-            // ff='Inter, sans-serif'
             fw={600}
             fz='0.875rem'
             style={{ letterSpacing: '0.5px' }}
