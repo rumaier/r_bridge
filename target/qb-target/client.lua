@@ -63,6 +63,7 @@ Core.Target.addBoxZone = function(coords, size, heading, options, debug)
         options = options,
         distance = options.distance or 1.5,
     })
+    return id
 end
 
 Core.Target.removeZone = function(id)
