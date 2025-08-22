@@ -18,7 +18,7 @@ local function throwUpdatePrints(resource, current, latest, notes, paid)
     print('[^3WARNING^0]: Latest: ^2' .. latest .. '^0')
     print('[^3WARNING^0]: Patch Notes:')
     for _, text in ipairs(notes) do
-        print('[^3WARNING^0]: · ' .. text)
+        print('[^3WARNING^0]: ' .. text)
     end
     print('[^3WARNING^0]: Download: ^5' .. (paid and portalUrl or (githubUrl):format(resource)) .. '^0')
 end
