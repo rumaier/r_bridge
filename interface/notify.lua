@@ -5,6 +5,7 @@ Core.Interface.notify = function(title, text, type, duration)
         title = title,
         description = text,
         type = type,
-        duration = duration
+        duration = duration,
+        position = 'top-right'
     })
 end
