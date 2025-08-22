@@ -21,6 +21,7 @@ server_scripts {
   'framework/**/server.lua',
   'inventory/**/server.lua',
   'target/**/server.lua',
+  'carlock/**/server.lua',
 }
 
 client_scripts {
@@ -28,6 +29,7 @@ client_scripts {
   'framework/**/client.lua',
   'inventory/**/client.lua',
   'target/**/client.lua',
+  'carlock/**/client.lua',
   'interface/*.lua',
 }
 
