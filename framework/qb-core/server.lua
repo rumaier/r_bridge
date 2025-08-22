@@ -1,8 +1,9 @@
+---@diagnostic disable: duplicate-set-field
 if GetResourceState('qb-core') ~= 'started' then return end
 if GetResourceState('qbx_core') == 'started' then return end
 
 Core.Framework = {}
-Core.Framework.Current = 'QBCore'
+Core.Framework.Current = 'qb-core'
 
 local QBCore = exports['qb-core']:GetCoreObject()
 

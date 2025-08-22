@@ -1,7 +1,8 @@
+---@diagnostic disable: duplicate-set-field
 if GetResourceState('es_extended') ~= 'started' then return end
 
 Core.Framework = {}
-Core.Framework.Current = 'ESX'
+Core.Framework.Current = 'es_extended'
 
 local ESX = exports['es_extended']:getSharedObject()
 

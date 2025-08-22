@@ -1,8 +1,9 @@
+---@diagnostic disable: duplicate-set-field
 if GetResourceState('qb-core') ~= 'started' then return end
 if GetResourceState('qbx_core') == 'started' then return end
 
 Core.Framework = {}
-Core.Framework.Current = 'QBCore'
+Core.Framework.Current = 'qb-core'
 
 local QBCore = exports['qb-core']:GetCoreObject()
 
@@ -21,7 +22,9 @@ end
 
 Core.Framework.ToggleOutfit = function(wear, outfits)
     if wear then
-        local gender = QBCore.Functions.GetPlayerData().charinfo
+        local playerData = QBCore.Functions.GetPlayerData()
+        if not playerData then return end
+        local gender = playerData.charinfo
         local outfit = gender == 1 and outfits.Female or outfits.Male
         if not outfit then return end
         TriggerEvent('qb-clothing:client:loadOutfit', { outfitData = outfit })
