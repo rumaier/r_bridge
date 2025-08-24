@@ -52,7 +52,7 @@ end
 -- ENTITIES
 
 Core.Natives.createObject = function(model, coords, heading, networked)
-    model = joaat(model)
+    model = type(model) == 'number' and model or joaat(model)
     RequestModel(model)
     repeat Wait(0) until HasModelLoaded(model)
     local object = CreateObject(model, coords.x, coords.y, coords.z, networked, false, false)
@@ -62,7 +62,7 @@ Core.Natives.createObject = function(model, coords, heading, networked)
 end
 
 Core.Natives.createPed = function(model, coords, heading, networked)
-    model = joaat(model)
+    model = type(model) == 'number' and model or joaat(model)
     RequestModel(model)
     repeat Wait(0) until HasModelLoaded(model)
     local ped = CreatePed(0, model, coords.x, coords.y, coords.z, heading, networked, false)
@@ -71,7 +71,7 @@ Core.Natives.createPed = function(model, coords, heading, networked)
 end
 
 Core.Natives.createVehicle = function(model, coords, heading, networked)
-    model = joaat(model)
+    model = type(model) == 'number' and model or joaat(model)
     RequestModel(model)
     repeat Wait(0) until HasModelLoaded(model)
     local vehicle = CreateVehicle(model, coords.x, coords.y, coords.z, heading, networked, false)
