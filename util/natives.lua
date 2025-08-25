@@ -5,6 +5,7 @@ Core.Natives = {}
 local blips = {}
 
 local function saveBlip(blip, resource)
+    print('saving blip', blip, 'for resource', resource)
     blips[resource] = blips[resource] or {}
     table.insert(blips[resource], blip)
 end
@@ -24,9 +25,10 @@ end
 
 Core.Natives.removeBlip = function(blip)
     local resource = GetInvokingResource()
-    if not blips.resource then return end
+    if not blips[resource] then return end
     for i, id in pairs(blips[resource]) do
         if id == blip then
+            print('found blip, removing', blip)
             table.remove(blips[resource], i)
             RemoveBlip(blip)
             break
