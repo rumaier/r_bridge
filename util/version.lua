@@ -42,7 +42,6 @@ Core.VersionCheck = function(resource)
 end
 
 AddEventHandler('onResourceStart', function(resource)
-    if resource == GetCurrentResourceName() then
-        Core.VersionCheck(resource)
-    end
+    if resource ~= GetCurrentResourceName() then return end
+    Core.VersionCheck(resource)
 end)
