@@ -24,7 +24,7 @@ local function throwUpdatePrints(resource, current, latest, notes, paid)
 end
 
 Core.VersionCheck = function(resource)
-    local url = ('https://raw.githubusercontent.com/rumaier/r_versions/main/versions.json')
+    local url = ('https://raw.githubusercontent.com/rumaier/r_scripts_versions/main/versions.json')
     local version = getResourceVersion(resource)
     PerformHttpRequest(url, function(err, body)
         if err == 200 then
