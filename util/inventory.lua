@@ -1,7 +1,7 @@
 function NormalizeItem(item)
-    item.count = item.amount
-    item.metadata = item.info
-    item.stack = not item.unique
+    item.count = item.amount or item.count
+    item.metadata = item.info or item.metadata
+    item.stack = (not item.unique) or item.stack
     item.amount = nil
     item.info = nil
     item.unique = nil
