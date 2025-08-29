@@ -26,13 +26,13 @@ const HelpText: FC = () => {
           pos='absolute'
           top='0.75rem'
           left='1rem'
-          p='sm'
-          px='md'
+          p='0.4rem'
+          shadow='sm'
           style={transitionStyles}
         >
           <Text
             fw={600}
-            fz='md'
+            fz='sm'
             style={{ letterSpacing: '0.5px' }}
           >
             {text.toUpperCase()}
