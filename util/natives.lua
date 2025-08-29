@@ -5,7 +5,6 @@ Core.Natives = {}
 local blips = {}
 
 local function saveBlip(blip, resource)
-    print('saving blip', blip, 'for resource', resource)
     blips[resource] = blips[resource] or {}
     table.insert(blips[resource], blip)
 end
