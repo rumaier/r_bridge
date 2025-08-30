@@ -5,6 +5,10 @@ Core.Interface.progress = function(data)
     return progress
 end
 
+Core.Interface.isProgressActive = function()
+    return lib.progressActive()
+end
+
 Core.Interface.closeProgress = function()
     lib.cancelProgress()
 end
