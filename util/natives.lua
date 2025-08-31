@@ -82,9 +82,9 @@ end
 
 Core.Natives.setEntityProperties = function(entity, frozen, invincible, oblivious)
     if not DoesEntityExist(entity) then return end
-    FreezeEntityPosition(entity, frozen)
-    SetEntityInvincible(entity, invincible)
-    SetBlockingOfNonTemporaryEvents(entity, oblivious)
+    FreezeEntityPosition(entity, frozen or false)
+    SetEntityInvincible(entity, invincible or false)
+    SetBlockingOfNonTemporaryEvents(entity, oblivious or false)
 end
 
 -- ANIMATIONS/PTFX
