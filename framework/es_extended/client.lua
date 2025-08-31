@@ -7,14 +7,16 @@ Core.Framework.Current = 'es_extended'
 local ESX = exports['es_extended']:getSharedObject()
 
 Core.Framework.getCharacterName = function()
-    local firstName = ESX.PlayerData.firstName or ''
-    local lastName = ESX.PlayerData.lastName or ''
+    local playerData = ESX.GetPlayerData()
+    local firstName = playerData.firstName or ''
+    local lastName = playerData.lastName or ''
     return { first = firstName, last = lastName }
 end
 
 Core.Framework.getPlayerMetadata = function(meta)
-    local metadata = ESX.PlayerData.metadata[meta]
-    return metadata
+    local playerData = ESX.GetPlayerData()
+    local meta = playerData.metadata[meta]
+    return meta
 end
 
 Core.Framework.toggleOutfit = function(wear, outfits)
