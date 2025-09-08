@@ -9,3 +9,5 @@ Core.Interface.notify = function(title, text, type, duration)
         position = 'top-right'
     })
 end
+
+RegisterNetEvent('r_bridge:notify', Core.Interface.notify)
