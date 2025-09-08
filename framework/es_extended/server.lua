@@ -16,8 +16,9 @@ end
 Core.Framework.getPlayerCharacterName = function(src)
     local xPlayer = ESX.GetPlayerFromId(src)
     if not xPlayer then return end
-    local firstName = xPlayer.variable.firstName or ''
-    local lastName = xPlayer.variable.lastName or ''
+    print(json.encode(xPlayer, {indent = true}))
+    local firstName = xPlayer.variables.firstName or ''
+    local lastName = xPlayer.variables.lastName or ''
     return { first = firstName, last = lastName }
 end
 
