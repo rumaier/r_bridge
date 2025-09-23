@@ -27,7 +27,6 @@ Core.Natives.removeBlip = function(blip)
     if not blips[resource] then return end
     for i, id in pairs(blips[resource]) do
         if id == blip then
-            print('found blip, removing', blip)
             table.remove(blips[resource], i)
             RemoveBlip(blip)
             break
