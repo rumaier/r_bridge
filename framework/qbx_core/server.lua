@@ -7,7 +7,7 @@ Core.Framework.Current = 'qbx_core'
 local QBX = exports.qbx_core
 
 Core.Framework.getPlayerIdentifier = function(src)
-    local player = QBX.Functions.GetPlayer(src)
+    local player = QBX:GetPlayer(src)
     if not player then return end
     local identifier = player.PlayerData.citizenid
     return identifier
@@ -23,7 +23,7 @@ Core.Framework.getPlayerCharacterName = function(src)
 end
 
 Core.Framework.getPlayerJob = function(src)
-    local player = QBX.Functions.GetPlayer(src)
+    local player = QBX:GetPlayer(src)
     if not player then return end
     local playerData = player.PlayerData
     local job = playerData.job
@@ -31,7 +31,7 @@ Core.Framework.getPlayerJob = function(src)
 end
 
 Core.Framework.getPlayerMetadata = function(src, meta)
-    local player = QBX.Functions.GetPlayer(src)
+    local player = QBX:GetPlayer(src)
     if not player then return end
     local playerData = player.PlayerData
     local metadata = playerData.metadata[meta]
@@ -39,13 +39,13 @@ Core.Framework.getPlayerMetadata = function(src, meta)
 end
 
 Core.Framework.setPlayerMetadata = function(src, meta, value)
-    local player = QBX.Functions.GetPlayer(src)
+    local player = QBX:GetPlayer(src)
     if not player then return end
     player.Functions.SetMeta(meta, value)
 end
 
 Core.Framework.getAccountBalance = function(src, account)
-    local player = QBX.Functions.GetPlayer(src)
+    local player = QBX:GetPlayer(src)
     if not player then return end
     local playerData = player.PlayerData
     if account == 'money' then account = 'cash' end
@@ -54,14 +54,14 @@ Core.Framework.getAccountBalance = function(src, account)
 end
 
 Core.Framework.addAccountBalance = function(src, account, amount)
-    local player = QBX.Functions.GetPlayer(src)
+    local player = QBX:GetPlayer(src)
     if not player then return end
     if account == 'money' then account = 'cash' end
     player.Functions.AddMoney(account, amount)
 end
 
 Core.Framework.removeAccountBalance = function(src, account, amount)
-    local player = QBX.Functions.GetPlayer(src)
+    local player = QBX:GetPlayer(src)
     if not player then return end
     if account == 'money' then account = 'cash' end
     player.Functions.RemoveMoney(account, amount)
