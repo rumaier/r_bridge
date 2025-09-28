@@ -1,92 +1,68 @@
+---@diagnostic disable: duplicate-set-field
 if GetResourceState('codem-inventory') ~= 'started' then return end
 
-Core.Info.Inventory = 'codem-inventory'
-
 Core.Inventory = {}
+Core.Inventory.Current = 'codem-inventory'
 
-function Core.Inventory.AddItem(src, item, count, metadata)
-    local src = src or source
-    return exports['codem-inventory']:AddItem(src, item, count, nil, metadata)
+local CodeMInventory = exports['codem-inventory']
+
+Core.Inventory.addItem = function(src, item, count, metadata)
+    local success = CodeMInventory:AddItem(src, item, count, nil, metadata)
+    return success
 end
 
-function Core.Inventory.RemoveItem(src, item, count, metadata)
-    local src = src or source
-    if metadata ~= nil then
-        local items = exports['codem-inventory']:GetInventory(nil, src)
-        for _, pItem in pairs(items) do
-            if pItem.name == item.name and lib.table.matches(item.info, metadata) then
-                return exports['codem-inventory']:RemoveItem(src, pItem.name, count, pItem.slot)
-            end
-        end
-    end
-    return exports['codem-inventory']:RemoveItem(src, item, count, nil)
-end
-
-function Core.Inventory.GetItem(src, item, metadata)
-    local src = src or source
-    local items = exports['codem-inventory']:GetInventory(nil, src)
-    for _, itemInfo in pairs(items) do
-        if itemInfo.name == item and metadata == nil then
-            itemInfo.count = itemInfo.amount
-            itemInfo.metadata = itemInfo.info
-            itemInfo.stack = not itemInfo.unique
-            return itemInfo
-        elseif itemInfo.name == item and metadata ~= nil then
-            if itemInfo.info == metadata then
-                itemInfo.count = itemInfo.amount
-                itemInfo.metadata = itemInfo.info
-                itemInfo.stack = not itemInfo.unique
-                return itemInfo
-            end
+local function removeMetadataItem(src, item, count, metadata)
+    local inventory = Core.Inventory.getPlayerInventory(src)
+    if not inventory then return false end
+    for _, i in pairs(inventory) do
+        if i.name == item and lib.table.matches(i.info, metadata) then
+            local success = CodeMInventory:RemoveItem(src, item, count, i.slot)
+            if not success then return false end
+            return true
         end
     end
 end
 
-function Core.Inventory.GetItemCount(src, item, metadata)
-    local src = src or source
-    if metadata == nil then
-        return exports['codem-inventory']:GetItemsTotalAmount(src, item)
-    else
-        local items = exports['codem-inventory']:GetInventory(nil, src)
-        for _, itemInfo in pairs(items) do
-            if itemInfo.name == item and itemInfo.info == metadata then
-                return itemInfo.amount
-            end
-        end
-    end
-    return 0
+Core.Inventory.removeItem = function(src, item, count, metadata)
+    if metadata then return removeMetadataItem(src, item, count, metadata) end
+    local success = CodeMInventory:RemoveItem(src, item, count)
+    return success
 end
 
-function Core.Inventory.GetInventoryItems(src)
-    local src = src or source
-    local items = exports['codem-inventory']:GetInventory(nil, src)
-    for _, itemInfo in pairs(items) do
-        itemInfo.count = itemInfo.amount
-        itemInfo.metadata = itemInfo.info
-        itemInfo.stack = not itemInfo.unique
-    end
-    return items
+Core.Inventory.setItemMetadata = function(src, item, slot, metadata)
+    CodeMInventory:SetItemMetadata(src, slot, metadata)
 end
 
-function Core.Inventory.CanCarryItem(src, item, count)
-    return true -- codem-inventory is another one that doesnt have a canCarry export.... do better.
-end
-
-function Core.Inventory.RegisterStash(id, label, slots, weight, owner)
-    -- could not find any exports in this for the docs... thank god I dont use it. May just remove stash shit.
-end
-
-function Core.Inventory.GetItemInfo(item)
-    local items = exports['codem-inventory']:GetItemList()
-    for _, itemInfo in pairs(items) do
-        if itemInfo.name == item then
-            itemInfo.stack = not itemInfo.unique
-            return itemInfo
+Core.Inventory.getItem = function(src, item, metadata)
+    local inventory = Core.Inventory.getPlayerInventory(src)
+    if not inventory then return end
+    for _, v in pairs(inventory) do
+        if v.name == item and (not metadata or lib.table.matches(v.info, metadata)) then
+            return NormalizeItem(v)
         end
     end
 end
 
-function Core.Inventory.SetMetadata(src, item, slot, metadata)
-    local src = src or source
-    exports['codem-inventory']:SetItemMetadata(src, slot, metadata)
+Core.Inventory.getItemCount = function(src, item)
+    local count = CodeMInventory:GetItemsTotalAmount(src, item)
+    return count
+end
+
+Core.Inventory.getPlayerInventory = function(src)
+    local inventory = CodeMInventory:GetInventory(src)
+    inventory = NormalizeInventory(inventory)
+    return inventory
+end
+
+Core.Inventory.canCarryItem = function(src, item, count)
+    return true
+end
+
+Core.Inventory.getItemInfo = function(item)
+    local items = CodeMInventory:GetItemList()
+    for _, info in pairs(items) do
+        if info.name == item then
+            return info
+        end
+    end
 end

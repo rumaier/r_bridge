@@ -1,19 +1,13 @@
+---@diagnostic disable: duplicate-set-field
 if GetResourceState('qs-inventory') ~= 'started' then return end
 
-Core.Info.Inventory = 'qs-inventory'
-
 Core.Inventory = {}
+Core.Inventory.Current = 'qs-inventory'
+Core.Inventory.IconPath = 'nui://qs-inventory/html/images/%s.png'
 
-function Core.Inventory.ImgPath()
-    return "nui://qs-inventory/html/images/%s.png"
-end
+local QSInventory = exports['qs-inventory']
 
-function Core.Inventory.OpenStash(id)
-    exports['qs-inventory']:RegisterStash(id, 50, 50000)
-end
-
-function Core.Inventory.GetItemInfo(item)
-    local itemsLua = exports['qs-inventory']:GetItemList()
-    if not itemsLua[item] then return end
-    return itemsLua[item]
+Core.Inventory.getItemInfo = function(item)
+    local items = QSInventory:GetItemList()
+    return items[item]
 end

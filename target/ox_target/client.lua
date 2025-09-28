@@ -1,74 +1,48 @@
+---@diagnostic disable: duplicate-set-field
 if GetResourceState('ox_target') ~= 'started' then return end
 
-local ox_target = exports.ox_target
-local targetZones = {}
-
 Core.Target = {}
+Core.Target.Current = 'ox_target'
 
-function Core.Target.AddGlobalPeds(options)
+local ox_target = exports.ox_target
+
+Core.Target.addGlobalPedOptions = function(options)
     ox_target:addGlobalPed(options)
 end
 
-function Core.Target.AddGlobalPlayer(options)
+Core.Target.removeGlobalPedOptions = function(optionName)
+    ox_target:removeGlobalPed(optionName)
+end
+
+Core.Target.addGlobalPlayerOptions = function(options)
     ox_target:addGlobalPlayer(options)
 end
 
-function Core.Target.AddLocalEntity(entities, options)
-    ox_target:addLocalEntity(entities, options)
+Core.Target.removeGlobalPlayerOptions = function(optionName)
+    ox_target:removeGlobalPlayer(optionName)
 end
 
-function Core.Target.AddModel(models, options)
-    ox_target:addModel(models, options)
+Core.Target.addLocalEntity = function(entity, options)
+    ox_target:addLocalEntity(entity, options)
 end
 
-function Core.Target.AddBoxZone(name, coords, size, heading, options, drawPoly)
-    local target = ox_target:addBoxZone({
-        coords = coords,
-        size = size,
-        rotation = heading,
-        debug = drawPoly,
-        options = options,
-    })
-    table.insert(targetZones, { name = name, id = target, creator = GetInvokingResource() })
-    return target
-end
-
-function Core.Target.RemoveGlobalPeds(name)
-    ox_target:removeGlobalPed(name)
-end
-
-function Core.Target.RemoveGlobalPlayer(name)
-    ox_target:removeGlobalPlayer(name)
-end
-
-function Core.Target.RemoveLocalEntity(entity)
+Core.Target.removeLocalEntity = function(entity)
     ox_target:removeLocalEntity(entity)
 end
 
-function Core.Target.RemoveModel(model)
-    ox_target:removeModel(model)
+Core.Target.addModel = function(models, options)
+    ox_target:addModel(models, options)
 end
 
-function Core.Target.RemoveZone(name)
-    for _, data in pairs(targetZones) do
-        if data.name == name then
-            ox_target:removeZone(data.id)
-            table.remove(targetZones, _)
-            break
-        end
-    end
+Core.Target.removeModel = function(models)
+    ox_target:removeModel(models)
 end
 
-AddEventHandler('onResourceStop', function(resource)
-    if resource ~= GetCurrentResourceName() then
-        local removed = 0
-        for _, target in pairs(targetZones) do
-            if target.creator == resource then
-                ox_target:removeZone(target.id)
-                table.remove(targetZones, _)
-                removed = removed + 1
-            end
-        end
-        if removed > 0 then print('[DEBUG] - removed targets for:', resource) end
-    end
-end)
+Core.Target.addBoxZone = function(coords, size, heading, options, debug)
+    local id = ox_target:addBoxZone({ coords = coords, size = size, rotation = heading, options = options, debug = debug })
+    return id
+end
+
+Core.Target.removeZone = function(id)
+    ox_target:removeZone(id)
+end

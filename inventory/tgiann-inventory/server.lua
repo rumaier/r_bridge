@@ -1,59 +1,50 @@
+---@diagnostic disable: duplicate-set-field
 if GetResourceState('tgiann-inventory') ~= 'started' then return end
 
-Core.Info.Inventory = 'tgiann-inventory'
-
 Core.Inventory = {}
+Core.Inventory.Current = 'tgiann-inventory'
 
-function Core.Inventory.AddItem(src, item, count, metadata)
-    local src = src or source
-    local action = exports['tgiann-inventory']:AddItem(src, item, count, metadata)
+local TgiannInventory = exports['tgiann-inventory']
+
+Core.Inventory.addItem = function(src, item, count, metadata)
+    local action = TgiannInventory:AddItem(src, item, count, metadata)
     return (action.itemAddRemoveLog == 'added')
 end
 
-function Core.Inventory.RemoveItem(src, item, count, metadata)
-    local src = src or source
-    local action = exports['tgiann-inventory']:RemoveItem(src, item, count, nil, metadata)
-    return action
-end 
+Core.Inventory.removeItem = function(src, item, count, metadata)
+    local success = TgiannInventory:RemoveItem(src, item, count, nil, metadata)
+    return success
+end
 
-function Core.Inventory.GetItem(src, item, metadata)
-    local src = src or source
-    local item = exports['tgiann-inventory']:GetItemByName(src, item, metadata)
-    item.count = item.amount
-    item.metadata = item.info
+Core.Inventory.setItemMetadata = function(src, item, slot, metadata)
+    TgiannInventory:UpdateItemMetadata(src, item, slot, metadata)
+end
+
+Core.Inventory.getItem = function(src, item, metadata)
+    local item = TgiannInventory:GetItemByName(src, item, metadata)
+    item = NormalizeItem(item)
     return item
 end
 
-function Core.Inventory.GetItemCount(src, item, metadata)
-    local src = src or source
-    local item = exports['tgiann-inventory']:GetItemByName(src, item, metadata)
-    return item.amount or 0
+Core.Inventory.getItemCount = function(src, item)
+    local count = TgiannInventory:GetItemCount(src, item)
+    return count
 end
 
-function Core.Inventory.GetInventoryItems(src)
-    local src = src or source
-    return exports['tgiann-inventory']:GetPlayerItems(src)
+Core.Inventory.getPlayerInventory = function(src)
+    local inventory = TgiannInventory:GetPlayerItems(src)
+    inventory = NormalizeInventory(inventory)
+    return inventory
 end
 
-function Core.Inventory.CanCarryItem(src, item, count)
-    local src = src or source
-    return exports["tgiann-inventory"]:CanCarryItem(src, item, count)
+Core.Inventory.canCarryItem = function(src, item, count)
+    local canCarry = TgiannInventory:CanCarryItem(src, item, count)
+    return canCarry
 end
 
-function Core.Inventory.RegisterStash(id, label, slots, weight, owner)
-    exports["tgiann-inventory"]:CreateCustomStashWithItem(id, {})
-end
-
-function Core.Inventory.GetItemInfo(item)
-    local itemsList = exports['tgiann-inventory']:GetItemList()
-    for _, itemData in pairs(itemsList) do
-        if itemData.name == item then
-            return itemData
-        end
+Core.Inventory.getItemInfo = function(item)
+    local items = TgiannInventory:GetItemList()
+    for _, info in pairs(items) do 
+        if info.name == item then return info end
     end
-end
-
-function Core.Inventory.SetMetadata(src, item, slot, metadata)
-    local src = src or source
-    exports["tgiann-inventory"]:UpdateItemMetadata(src, item, slot, metadata)
 end

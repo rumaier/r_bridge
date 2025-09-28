@@ -1,89 +1,76 @@
+---@diagnostic disable: duplicate-set-field
 if GetResourceState('qb-inventory') ~= 'started' then return end
 
-Core.Info.Inventory = 'qb-inventory'
-local QBCore = exports['qb-core']:GetCoreObject()
-
 Core.Inventory = {}
+Core.Inventory.Current = 'qb-inventory'
 
-function Core.Inventory.AddItem(src, item, count, metadata)
-    local src = src or source
-    local added = exports['qb-inventory']:AddItem(src, item, count, nil, metadata)
-    if not added then return added end
+local QBCore = exports['qb-core']:GetCoreObject()
+local QBInventory = exports['qb-inventory']
+
+Core.Inventory.addItem = function(src, item, count, metadata)
+    local success = QBInventory:AddItem(src, item, count, nil, metadata)
+    if not success then return false end
     TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[item], 'add', count)
-    return added
+    return true
 end
 
-function Core.Inventory.RemoveItem(src, item, count, metadata)
-    local src = src or source
-    if metadata ~= nil then
-        local playerInv = QBCore.Functions.GetPlayer(src).PlayerData.items
-        if not playerInv then return end
-        for _, pItem in pairs(playerInv) do
-            if pItem.name == item.name and lib.table.matches(item.info, metadata) then
-                local removed = exports['qb-inventory']:RemoveItem(src, pItem.name, count, pItem.slot)
-                if not removed then return removed end
-                TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[pItem.name], 'remove', count)
-                return removed
-            end
+local function removeMetadataItem(src, item, count, metadata)
+    local inventory = Core.Inventory.getPlayerInventory(src)
+    if not inventory then return false end
+    for _, i in pairs(inventory) do
+        if i.name == item and lib.table.matches(i.metadata, metadata) then
+            local success = QBInventory:RemoveItem(src, item, count, i.slot)
+            if not success then return false end
+            TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[item], 'remove', count)
+            return true
         end
     end
-    local removed = exports['qb-inventory']:RemoveItem(src, item, count, nil)
-    if not removed then return removed end
+    return false
+end
+
+Core.Inventory.removeItem = function(src, item, count, metadata)
+    if metadata then return removeMetadataItem(src, item, count, metadata) end
+    local success = QBInventory:RemoveItem(src, item, count)
+    if not success then return false end
     TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[item], 'remove', count)
-    return removed
+    return true
 end
 
-function Core.Inventory.GetItem(src, item, metadata)
-    local src = src or source
-    local playerItems = QBCore.Functions.GetPlayer(src).PlayerData.items
-    if not playerItems then return end
-    for _, itemInfo in pairs(playerItems) do
-        if itemInfo.name == item then
-            itemInfo.count = itemInfo.amount
-            itemInfo.metadata = itemInfo.info
-            itemInfo.stack = not itemInfo.unique
-            return itemInfo
+Core.Inventory.setItemMetadata = function(src, item, slot, metadata)
+    local removed = removeMetadataItem(src, item, 1, metadata)
+    if not removed then return end
+    QBInventory:AddItem(src, item, 1, nil, metadata)
+end
+
+Core.Inventory.getItem = function(src, item, metadata)
+    local inventory = Core.Inventory.getPlayerInventory(src)
+    if not inventory then return end
+    for _, v in pairs(inventory) do
+        if v.name == item and (not metadata or lib.table.matches(v.metadata, metadata)) then
+            return NormalizeItem(v)
         end
     end
 end
 
-function Core.Inventory.GetItemCount(src, item, metadata)
-    local src = src or source
-    local totalItems = exports['qb-inventory']:GetItemsByName(src, item)
-    return totalItems[1].amount or 0
+Core.Inventory.getItemCount = function(src, item)
+    local count = QBInventory:GetItemCount(src, item)
+    return count
 end
 
-function Core.Inventory.GetInventoryItems(src)
-    local src = src or source
-    local playerItems = QBCore.Functions.GetPlayer(src).PlayerData.items
-    if not playerItems then return end
-    for _, item in pairs(playerItems) do
-        item.count = item.amount
-        item.metadata = item.info  
-        item.stack = item.unique
-    end
-    return playerItems
+Core.Inventory.getPlayerInventory = function(src)
+    local player = QBCore.Functions.GetPlayer(src)
+    if not player then return end
+    local inventory = player.PlayerData.items
+    inventory = NormalizeInventory(inventory)
+    return inventory
 end
 
-function Core.Inventory.CanCarryItem(src, item, count)
-    return true -- this framework is garbage, doesn't have a check in v1 inv, so we just return true
+Core.Inventory.canCarryItem = function(src, item, count)
+    local canCarry = QBInventory:CanAddItem(src, item, count)
+    return canCarry
 end
 
-function Core.Inventory.RegisterStash(id, label, slots, weight, owner)
-    -- v1 handles client, idk about v2.. so we just leave this alone
-end
-
-function Core.Inventory.GetItemInfo(item)
-    local itemInfo = QBCore.Shared.Items[item]
-    itemInfo.count = item.amount
-    itemInfo.metadata = item.info
-    itemInfo.stack = item.unique
-    return itemInfo
-end
-
-function Core.Inventory.SetMetadata(src, item, slot, metadata)
-    local src = src or source
-    local removed = exports['qb-inventory']:RemoveItem(src, item, 1, slot)
-    if not removed then return end
-    exports['qb-inventory']:AddItem(src, item, 1, nil, metadata)
+Core.Inventory.getItemInfo = function(item)
+    local info = QBCore.Shared.Items[item]
+    return info
 end

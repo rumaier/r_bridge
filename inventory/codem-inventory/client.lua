@@ -1,23 +1,17 @@
+---@diagnostic disable: duplicate-set-field
 if GetResourceState('codem-inventory') ~= 'started' then return end
 
-Core.Info.Inventory = 'codem-inventory'
-
 Core.Inventory = {}
+Core.Inventory.Current = 'codem-inventory'
+Core.Inventory.IconPath = 'nui://codem-inventory/html/images/%s.png'
 
-function Core.Inventory.ImgPath()
-    return "nui://codem-inventory/html/images/%s.png"
-end
+local CodeMInventory = exports['codem-inventory']
 
-function Core.Inventory.OpenStash(id)
-    -- does not exist in codem-inventory
-end
-
-function Core.Inventory.GetItemInfo(item)
-    local items = exports['codem-inventory']:GetItemList()
-    for _, itemInfo in pairs(items) do
-        if itemInfo.name == item then
-            itemInfo.stack = not itemInfo.unique
-            return itemInfo
+Core.Inventory.getItemInfo = function(item)
+    local items = CodeMInventory:GetItemList()
+    for _, info in pairs(items) do
+        if info.name == item then
+            return info
         end
     end
 end

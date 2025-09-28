@@ -1,18 +1,13 @@
+---@diagnostic disable: duplicate-set-field
 if GetResourceState('ox_inventory') ~= 'started' then return end
 
-Core.Info.Inventory = 'ox_inventory'
+Core.Inventory = {}
+Core.Inventory.Current = 'ox_inventory'
+Core.Inventory.IconPath = 'nui://ox_inventory/web/images/%s.png'
+
 local ox_inventory = exports.ox_inventory
 
-Core.Inventory = {}
-
-function Core.Inventory.ImgPath()
-    return "nui://ox_inventory/web/images/%s.png"
-end
-
-function Core.Inventory.OpenStash(id)
-    ox_inventory:openInventory('stash', id)
-end
-
-function Core.Inventory.GetItemInfo(item)
-    return ox_inventory:Items(item)
+Core.Inventory.getItemInfo = function(item)
+    local info = ox_inventory:Items(item)
+    return info
 end

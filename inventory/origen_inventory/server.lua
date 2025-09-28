@@ -1,86 +1,48 @@
+---@diagnostic disable: duplicate-set-field
 if GetResourceState('origen_inventory') ~= 'started' then return end
 
-Core.Info.Inventory = 'origen_inventory'
+Core.Inventory = {}
+Core.Inventory.Current = 'origen_inventory'
+
 local origen_inventory = exports.origen_inventory
 
-Core.Inventory = {}
-
-function Core.Inventory.AddItem(src, item, count, metadata)
-    local src = src or source
-    return origen_inventory:AddItem(src, item, count, nil, nil, metadata)
+Core.Inventory.addItem = function(src, item, count, metadata)
+    local success = origen_inventory:addItem(src, item, count, metadata)
+    return success
 end
 
-function Core.Inventory.RemoveItem(src, item, count, metadata)
-    local src = src or source
-    return origen_inventory:RemoveItem(src, item, count, metadata)
+Core.Inventory.removeItem = function(src, item, count, metadata)
+    local success = origen_inventory:removeItem(src, item, count, metadata)
+    return success
 end
 
-function Core.Inventory.GetItem(src, item, metadata)
-    local src = src or source
-    local items = origen_inventory:GetInventory(src)
-    for _, itemInfo in pairs(items) do
-        if itemInfo.name == item and metadata == nil then
-            itemInfo.count = itemInfo.amount
-            itemInfo.metadata = itemInfo.info
-            itemInfo.stack = not itemInfo.unique
-            return itemInfo
-        elseif itemInfo.name == item and metadata ~= nil then
-            if itemInfo.info == metadata then
-                itemInfo.count = itemInfo.amount
-                itemInfo.metadata = itemInfo.info
-                itemInfo.stack = not itemInfo.unique
-                return itemInfo
-            end
-        end
-    end
+Core.Inventory.setItemMetadata = function(src, item, slot, metadata)
+    origen_inventory:setMetadata(src, slot, metadata)
 end
 
-function Core.Inventory.GetItemCount(src, item, metadata)
-    local src = src or source
-    if metadata == nil then
-        return origen_inventory:GetItemTotalAmount(src, item)
-    else
-        local items = origen_inventory:GetInventory(src)
-        for _, itemInfo in pairs(items) do
-            if itemInfo.name == item and itemInfo.info == metadata then
-                return itemInfo.amount
-            end
-        end
-    end
-    return 0
+Core.Inventory.getItem = function(src, item, metadata)
+    local item = origen_inventory:getItem(src, item, metadata)
+    item = NormalizeItem(item)
+    return item
 end
 
-function Core.Inventory.GetInventoryItems(src)
-    local src = src or source
-    local items = origen_inventory:GetInventory(src)
-    for _, itemInfo in pairs(items) do
-        itemInfo.count = itemInfo.amount
-        itemInfo.metadata = itemInfo.info
-        itemInfo.stack = not itemInfo.unique
-    end
-    return items
+Core.Inventory.getItemCount = function(src, item)
+    local count = origen_inventory:getItemCount(src, item)
+    return count
 end
 
-function Core.Inventory.CanCarryItem(src, item, count)
-    local src = src or source
-    return origen_inventory:CanCarryItems(src, item, count)
+Core.Inventory.getPlayerInventory = function(src)
+    local inventory = origen_inventory:getInventory(src)
+    inventory = NormalizeInventory(inventory)
+    return inventory
 end
 
-function Core.Inventory.RegisterStash(id, label, slots, weight, owner)
-    -- I dont use stash systems, I am probably just gonna end up removing the functions for it.
+Core.Inventory.canCarryItem = function(src, item, count)
+    local canCarry = origen_inventory:canCarryItem(src, item, count)
+    return canCarry
 end
 
-function Core.Inventory.GetItemInfo(item)
-    local items = origen_inventory:GetItems()
-    for _, itemInfo in pairs(items) do
-        if itemInfo.name == item then
-            itemInfo.stack = not itemInfo.unique
-            return itemInfo
-        end
-    end
-end
-
-function Core.Inventory.SetMetadata(src, item, slot, metadata)
-    local src = src or source
-    origen_inventory:SetItemMetadata(src, item, slot, metadata)
+Core.Inventory.getItemInfo = function(item)
+    local info = origen_inventory:Items(item)
+    return info
 end
