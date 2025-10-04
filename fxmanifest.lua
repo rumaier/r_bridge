@@ -7,7 +7,7 @@ lua54 'yes'
 name 'r_bridge'
 description 'Compatibility layer for r_scripts resources'
 author 'rumaier'
-version '2.0.0'
+version '2.0.1'
 
 shared_scripts {
   '@ox_lib/init.lua',
