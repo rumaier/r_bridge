@@ -29,8 +29,8 @@ Core.VersionCheck = function(resource)
     PerformHttpRequest(url, function(err, body)
         if err == 200 then
             local data = json.decode(body)
+            if data then data = data[resource] end
             if not data then return end
-            data = data[resource]
             local paid = not data.repo
             local latest = parseVersion(data.latest)
             local notes = data.notes or {}
