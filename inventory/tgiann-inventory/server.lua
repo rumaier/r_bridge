@@ -7,8 +7,8 @@ Core.Inventory.Current = 'tgiann-inventory'
 local TgiannInventory = exports['tgiann-inventory']
 
 Core.Inventory.addItem = function(src, item, count, metadata)
-    local action = TgiannInventory:AddItem(src, item, count, metadata)
-    return (action.itemAddRemoveLog == 'added')
+    local success = TgiannInventory:AddItem(src, item, count, metadata)
+    return success
 end
 
 Core.Inventory.removeItem = function(src, item, count, metadata)
