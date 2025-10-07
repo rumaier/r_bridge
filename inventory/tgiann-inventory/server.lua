@@ -11,8 +11,8 @@ Core.Inventory.addItem = function(src, item, count, metadata)
     return success
 end
 
-Core.Inventory.removeItem = function(src, item, count, metadata)
-    local success = TgiannInventory:RemoveItem(src, item, count, nil, metadata)
+Core.Inventory.removeItem = function(src, item, count, metadata, slot)
+    local success = TgiannInventory:RemoveItem(src, item, count, slot, metadata)
     return success
 end
 

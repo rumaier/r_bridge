@@ -23,9 +23,9 @@ local function removeMetadataItem(src, item, count, metadata)
     end
 end
 
-Core.Inventory.removeItem = function(src, item, count, metadata)
+Core.Inventory.removeItem = function(src, item, count, metadata, slot)
     if metadata then return removeMetadataItem(src, item, count, metadata) end
-    local success = CodeMInventory:RemoveItem(src, item, count)
+    local success = CodeMInventory:RemoveItem(src, item, count, slot)
     return success
 end
 

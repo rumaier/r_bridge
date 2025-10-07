@@ -11,8 +11,8 @@ Core.Inventory.addItem = function(src, item, count, metadata)
     return success
 end
 
-Core.Inventory.removeItem = function(src, item, count, metadata)
-    local success = origen_inventory:removeItem(src, item, count, metadata)
+Core.Inventory.removeItem = function(src, item, count, metadata, slot)
+    local success = origen_inventory:removeItem(src, item, count, metadata, slot)
     return success
 end
 

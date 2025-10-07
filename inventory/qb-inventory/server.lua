@@ -28,9 +28,9 @@ local function removeMetadataItem(src, item, count, metadata)
     return false
 end
 
-Core.Inventory.removeItem = function(src, item, count, metadata)
+Core.Inventory.removeItem = function(src, item, count, metadata, slot)
     if metadata then return removeMetadataItem(src, item, count, metadata) end
-    local success = QBInventory:RemoveItem(src, item, count)
+    local success = QBInventory:RemoveItem(src, item, count, slot)
     if not success then return false end
     TriggerClientEvent('inventory:client:ItemBox', src, QBCore.Shared.Items[item], 'remove', count)
     return true

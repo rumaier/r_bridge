@@ -11,8 +11,8 @@ Core.Inventory.addItem = function(src, item, count, metadata)
     return success
 end
 
-Core.Inventory.removeItem = function(src, item, count, metadata)
-    local success = ox_inventory:RemoveItem(src, item, count, metadata)
+Core.Inventory.removeItem = function(src, item, count, metadata, slot)
+    local success = ox_inventory:RemoveItem(src, item, count, metadata, slot)
     return success
 end
 
