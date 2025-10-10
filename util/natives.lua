@@ -96,11 +96,10 @@ Core.Natives.playAnimation = function(entity, dictionary, animation, duration, f
     RemoveAnimDict(dictionary)
 end
 
-Core.Natives.triggerParticleFx = function(coords, asset, effect, scale, duration)
+Core.Natives.triggerParticleFx = function(coords, asset, effect, scale, looped, duration)
     RequestNamedPtfxAsset(asset)
     repeat Wait(0) until HasNamedPtfxAssetLoaded(asset)
     UseParticleFxAsset(asset)
-    local looped = DoesParticleFxLoopedExist(effect)
     if looped then
         local fx = StartParticleFxLoopedAtCoord(effect, coords.x, coords.y, coords.z, 0, 0, 0, scale, false, false, false, false)
         SetTimeout(duration, function()
