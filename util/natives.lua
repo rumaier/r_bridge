@@ -96,18 +96,18 @@ Core.Natives.playAnimation = function(entity, dictionary, animation, duration, f
     RemoveAnimDict(dictionary)
 end
 
-Core.Natives.triggerParticleFx = function(coords, asset, effect, scale, looped, duration)
+Core.Natives.triggerParticleFx = function(coords, rotation, asset, effect, scale, looped, duration)
     RequestNamedPtfxAsset(asset)
     repeat Wait(0) until HasNamedPtfxAssetLoaded(asset)
     UseParticleFxAsset(asset)
     if looped then
-        local fx = StartParticleFxLoopedAtCoord(effect, coords.x, coords.y, coords.z, 0, 0, 0, scale, false, false, false, false)
+        local fx = StartParticleFxLoopedAtCoord(effect, coords.x, coords.y, coords.z, rotation.x, rotation.y, rotation.z, scale, false, false, false, false)
         SetTimeout(duration, function()
             StopParticleFxLooped(fx, false)
             RemoveNamedPtfxAsset(asset)
         end)
     else
-        StartParticleFxNonLoopedAtCoord(effect, coords.x, coords.y, coords.z, 0, 0, 0, scale, false, false, false)
+        StartParticleFxNonLoopedAtCoord(effect, coords.x, coords.y, coords.z, rotation.x, rotation.y, rotation.z, scale, false, false, false)
         RemoveNamedPtfxAsset(asset)
     end
 end
