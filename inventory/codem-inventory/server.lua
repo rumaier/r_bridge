@@ -49,7 +49,8 @@ Core.Inventory.getItemCount = function(src, item)
 end
 
 Core.Inventory.getPlayerInventory = function(src)
-    local inventory = CodeMInventory:GetInventory(src)
+    local identifier = Core.Framework.getPlayerIdentifier(src)
+    local inventory = CodeMInventory:GetInventory(identifier, src)
     inventory = NormalizeInventory(inventory)
     return inventory
 end
