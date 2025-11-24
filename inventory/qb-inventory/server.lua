@@ -37,9 +37,10 @@ Core.Inventory.removeItem = function(src, item, count, metadata, slot)
 end
 
 Core.Inventory.setItemMetadata = function(src, item, slot, metadata)
-    local removed = removeMetadataItem(src, item, 1, metadata)
+    item = QBInventory:GetItemBySlot(src, slot)
+    local removed = removeMetadataItem(src, item.name, 1, item.info)
     if not removed then return end
-    QBInventory:AddItem(src, item, 1, nil, metadata)
+    QBInventory:AddItem(src, item.name, 1, false, metadata)
 end
 
 Core.Inventory.getItem = function(src, item, metadata)
