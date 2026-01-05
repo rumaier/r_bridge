@@ -53,7 +53,7 @@ end
 Core.Target.addBoxZone = function(coords, size, heading, options, debug)
     options = convertOxOptions(options)
     local id = tostring(GetGameTimer())
-    exports['qb-target']:AddBoxZone(id, coords, size.x, size.y, {
+    QBTarget:AddBoxZone(id, coords, size.x, size.y, {
         name = id,
         debugPoly = debug,
         heading = heading,
