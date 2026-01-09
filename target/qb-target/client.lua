@@ -52,16 +52,11 @@ end
 
 local lastId = nil
 Core.Target.addBoxZone = function(coords, size, heading, options, debug)
-    print('[BRIDGE] - receiving request to add box zone at coords:', coords, 'with size:', size, 'and heading:', heading)
     options = convertOxOptions(options)
-    print('[BRIDGE] - converted options for qb:', json.encode(options))
     local id = lastId and lastId + 1 or tostring(GetGameTimer())
-    print('[BRIDGE] - generated zone id:', id)
     if id == lastId then 
-        print('[BRIDGE] - duplicate id detected, incrementing id')
         id = tostring(tonumber(lastId) + 1)
     end
-    print('[BRIDGE] - firing QBTarget export to add box zone with id:', id)
     QBTarget:AddBoxZone(id, coords, size.x, size.y, {
         name = id,
         debugPoly = debug,
@@ -73,7 +68,6 @@ Core.Target.addBoxZone = function(coords, size, heading, options, debug)
         distance = options.distance or 1.5,
     })
     lastId = id
-    print('[BRIDGE] -returning zone id:', id)
     return id
 end
 
