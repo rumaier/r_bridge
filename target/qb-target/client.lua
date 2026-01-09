@@ -53,12 +53,11 @@ end
 local lastId = nil
 Core.Target.addBoxZone = function(coords, size, heading, options, debug)
     options = convertOxOptions(options)
-    local id = lastId and lastId + 1 or tostring(GetGameTimer())
-    if id == lastId then 
-        id = tostring(tonumber(lastId) + 1)
-    end
-    QBTarget:AddBoxZone(id, coords, size.x, size.y, {
-        name = id,
+    local id = lastId and lastId + 1 or GetGameTimer()
+    if id == lastId then id = id + 1 end
+    local prefix = 'r_bridge:target:'
+    QBTarget:AddBoxZone(prefix .. id, coords, size.x, size.y, {
+        name = prefix .. id,
         debugPoly = debug,
         heading = heading,
         minZ = coords.z - (size.z * 0.5),
