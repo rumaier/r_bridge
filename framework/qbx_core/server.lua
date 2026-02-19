@@ -41,7 +41,7 @@ end
 Core.Framework.setPlayerMetadata = function(src, meta, value)
     local player = QBX:GetPlayer(src)
     if not player then return end
-    player.Functions.SetMeta(meta, value)
+    player.Functions.SetMetaData(meta, value)
 end
 
 Core.Framework.getAccountBalance = function(src, account)
