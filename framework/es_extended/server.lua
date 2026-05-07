@@ -1,85 +1,90 @@
 ---@diagnostic disable: duplicate-set-field
 if GetResourceState('es_extended') ~= 'started' then return end
-
-Core.Framework = {}
-Core.Framework.Current = 'es_extended'
-
 local ESX = exports['es_extended']:getSharedObject()
 
-Core.Framework.getPlayerIdentifier = function(src)
-    local xPlayer = ESX.GetPlayerFromId(src)
-    if not xPlayer then return end
-    local identifier = xPlayer.getIdentifier()
-    return identifier
+Framework = {}
+
+Framework.getDetected = function()
+    return 'es_extended'
 end
 
-Core.Framework.getPlayerCharacterName = function(src)
-    local xPlayer = ESX.GetPlayerFromId(src)
-    if not xPlayer then return end
-    local firstName = xPlayer.variables.firstName or ''
-    local lastName = xPlayer.variables.lastName or ''
-    return { first = firstName, last = lastName }
+Framework.getPlayerIdentifier = function(src)
+    return ESX.GetIdentifier(src)
 end
 
-Core.Framework.getPlayerJob = function(src)
-    local xPlayer = ESX.GetPlayerFromId(src)
-    if not xPlayer then return end
-    local job = xPlayer.getJob()
-    return { name = job.name, label = job.label, grade = job.grade, gradeLabel = job.grade_label }
+Framework.getPlayerName = function(src)
+    local xPlayer = ESX.Player(src)
+    return xPlayer and {
+        first = xPlayer.variables.firstName,
+        last = xPlayer.variables.lastName
+    }
 end
 
-Core.Framework.getPlayerMetadata = function(src, meta)
-    local xPlayer = ESX.GetPlayerFromId(src)
-    if not xPlayer then return end
-    local metadata = xPlayer.getMeta(meta)
-    return metadata
+Framework.getPlayerJob = function(src)
+    local xPlayer = ESX.Player(src)
+    local job = xPlayer and xPlayer.getJob()
+    return job and {
+        name = job.name,
+        label = job.label,
+        grade = job.grade,
+        gradeLabel = job.grade_label
+    }
 end
 
-Core.Framework.setPlayerMetadata = function(src, meta, value)
-    local xPlayer = ESX.GetPlayerFromId(src)
-    if not xPlayer then return end
-    xPlayer.setMeta(meta, value)
+Framework.getPlayerMetadata = function(src, key)
+    local xPlayer = ESX.Player(src)
+    return xPlayer and xPlayer.getMeta(key)
 end
 
-Core.Framework.getAccountBalance = function(src, account)
-    local xPlayer = ESX.GetPlayerFromId(src)
-    if not xPlayer then return end
+Framework.setPlayerMetadata = function(src, key, value)
+    local xPlayer = ESX.Player(src)
+    if xPlayer then
+        xPlayer.setMeta(key, value)
+    end
+end
+
+Framework.getBalance = function(src, account)
     if account == 'cash' then account = 'money' end
-    local balance = xPlayer.getAccount(account).money
-    return balance
+    local xPlayer = ESX.Player(src)
+    return xPlayer and xPlayer.getAccount(account).money
 end
 
-Core.Framework.addAccountBalance = function(src, account, amount)
-    local xPlayer = ESX.GetPlayerFromId(src)
-    if not xPlayer then return end
+Framework.addBalance = function(src, account, amount)
     if account == 'cash' then account = 'money' end
-    xPlayer.addAccountMoney(account, amount)
+    local xPlayer = ESX.Player(src)
+    if xPlayer then
+        xPlayer.addAccountMoney(account, amount)
+    end
 end
 
-Core.Framework.removeAccountBalance = function(src, account, amount)
-    local xPlayer = ESX.GetPlayerFromId(src)
-    if not xPlayer then return end
+Framework.removeBalance = function(src, account, amount)
     if account == 'cash' then account = 'money' end
-    xPlayer.removeAccountMoney(account, amount)
+    local xPlayer = ESX.Player(src)
+    if xPlayer then
+        xPlayer.removeAccountMoney(account, amount)
+    end
 end
 
-Core.Framework.addSocietyBalance = function(job, amount)
-    local society = exports['esx_society']:GetSociety(job)
-    if not society then return end
-    TriggerEvent('esx_addonaccount:getSharedAccount', society.account, function(account)
-        account.addMoney(amount)
-    end)
+Framework.addSocietyBalance = function(society, amount)
+    society = exports['esx_society']:GetSociety(society)
+    if society then
+        TriggerEvent('esx_addonaccount:getSharedAccount', society.account, function(account)
+            account.addMoney(amount)
+        end)
+    end
 end
 
-Core.Framework.removeSocietyBalance = function(job, amount)
-    local society = exports['esx_society']:GetSociety(job)
-    if not society then return end
-    TriggerEvent('esx_addonaccount:getSharedAccount', society.account, function(account)
-        account.removeMoney(amount)
-    end)
+Framework.removeSocietyBalance = function(society, amount)
+    society = exports['esx_society']:GetSociety(society)
+    if society then
+        TriggerEvent('esx_addonaccount:getSharedAccount', society.account, function(account)
+            account.removeMoney(amount)
+        end)
+    end
 end
 
-Core.Framework.registerUsableItem = function(item, cb)
-    if not item or not cb then return end
-    ESX.RegisterUsableItem(item, cb)
+Framework.registerUsableItem = function(item, cb)
+    if item and cb then
+        ESX.RegisterUsableItem(item, cb)
+    end
 end

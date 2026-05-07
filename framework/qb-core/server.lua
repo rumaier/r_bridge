@@ -1,81 +1,88 @@
 ---@diagnostic disable: duplicate-set-field
-if GetResourceState('qb-core') ~= 'started' or GetResourceState('qbx_core') == 'started' then return end
+if GetResourceState('qb-core') ~= 'started' then return end
+if GetResourceState('qbx_core') == 'started' then return end
+local QB = exports['qb-core']:GetCoreObject()
 
-Core.Framework = {}
-Core.Framework.Current = 'qb-core'
+Framework = {}
 
-local QBCore = exports['qb-core']:GetCoreObject()
-
-Core.Framework.getPlayerIdentifier = function(src)
-    local playerData = QBCore.Functions.GetPlayer(src).PlayerData
-    if not playerData then return end
-    local identifier = playerData.citizenid
-    return identifier
+Framework.getDetected = function()
+    return 'qb-core'
 end
 
-Core.Framework.getPlayerCharacterName = function(src)
-    local playerData = QBCore.Functions.GetPlayer(src).PlayerData
-    if not playerData then return end
-    local firstName = playerData.charinfo.firstname or ''
-    local lastName = playerData.charinfo.lastname or ''
-    return { first = firstName, last = lastName }
+Framework.getPlayerIdentifier = function(src)
+    local player = QB.Functions.GetPlayer(src)
+    return player and player.PlayerData.citizenid
 end
 
-Core.Framework.getPlayerJob = function(src)
-    local playerData = QBCore.Functions.GetPlayer(src).PlayerData
-    if not playerData then return end
-    local job = playerData.job
-    return { name = job.name, label = job.label, grade = job.grade.level, gradeLabel = job.grade.name }
+Framework.getPlayerName = function(src)
+    local player = QB.Functions.GetPlayer(src)
+    return player and {
+        first = player.PlayerData.charinfo.firstname,
+        last = player.PlayerData.charinfo.lastname
+    }
 end
 
-Core.Framework.getPlayerMetadata = function(src, meta)
-    local playerData = QBCore.Functions.GetPlayer(src).PlayerData
-    if not playerData then return end
-    local metadata = playerData.metadata[meta]
-    return metadata
+Framework.getPlayerJob = function(src)
+    local player = QB.Functions.GetPlayer(src)
+    local job = player and player.PlayerData.job
+    return job and {
+        name =  job.name,
+        label = job.label,
+        grade = job.grade.level,
+        gradeLabel = job.grade.name
+    }
 end
 
-Core.Framework.setPlayerMetadata = function(src, meta, value)
-    local player = QBCore.Functions.GetPlayer(src)
-    if not player then return end
-    player.Functions.SetMeta(meta, value)
+Framework.getPlayerMetadata = function(src, key)
+    local player = QB.Functions.GetPlayer(src)
+    return player and player.PlayerData.metadata[key]
 end
 
-Core.Framework.getAccountBalance = function(src, account)
-    local playerData = QBCore.Functions.GetPlayer(src).PlayerData
-    if not playerData then return end
+Framework.setPlayerMetadata = function(src, key, value)
+    local player = QB.Functions.GetPlayer(src)
+    if player then
+        player.Functions.SetMeta(key, value)
+    end
+end
+
+Framework.getBalance = function(src, account)
     if account == 'money' then account = 'cash' end
-    local balance = playerData.money[account]
-    return balance
+    local player = QB.Functions.GetPlayer(src)
+    return player and player.PlayerData.money[account]
 end
 
-Core.Framework.addAccountBalance = function(src, account, amount)
-    local player = QBCore.Functions.GetPlayer(src)
-    if not player then return end
+Framework.addBalance = function(src, account, amount)
     if account == 'money' then account = 'cash' end
-    player.Functions.AddMoney(account, amount)
+    local player = QB.Functions.GetPlayer(src)
+    if player then
+        player.Functions.AddMoney(account, amount)
+    end
 end
 
-Core.Framework.removeAccountBalance = function(src, account, amount)
-    local player = QBCore.Functions.GetPlayer(src)
-    if not player then return end
+Framework.removeBalance = function(src, account, amount)
     if account == 'money' then account = 'cash' end
-    player.Functions.RemoveMoney(account, amount)
+    local player = QB.Functions.GetPlayer(src)
+    if player then
+        player.Functions.RemoveMoney(account, amount)
+    end
 end
 
-Core.Framework.addSocietyBalance = function(job, amount)
-    local society = exports['qb-banking']:GetAccount(job)
-    if not society then return end
-    exports['qb-banking']:AddMoney(society, amount, '')
+Framework.addSocietyBalance = function(society, amount)
+    local society = exports['qb-banking']:GetAccount(society)
+    if society then
+        exports['qb-banking']:AddMoney(society, amount, '')
+    end
 end
 
-Core.Framework.removeSocietyBalance = function(job, amount)
-    local society = exports['qb-banking']:GetAccount(job)
-    if not society then return end
-    exports['qb-banking']:RemoveMoney(society, amount, '')
+Framework.removeSocietyBalance = function(society, amount)
+    local society = exports['qb-banking']:GetAccount(society)
+    if society then
+        exports['qb-banking']:RemoveMoney(society, amount, '')
+    end
 end
 
-Core.Framework.registerUsableItem = function(item, cb)
-    if not item or not cb then return end
-    QBCore.Functions.CreateUseableItem(item, cb)
+Framework.registerUsableItem = function(item, cb)
+    if item and cb then
+        QB.Functions.CreateUseableItem(item, cb)
+    end
 end

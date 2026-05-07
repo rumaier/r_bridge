@@ -1,33 +1,49 @@
 ---@diagnostic disable: duplicate-set-field
-if GetResourceState('qb-core') ~= 'started' or GetResourceState('qbx_core') == 'started' then return end
+if GetResourceState('qb-core') ~= 'started' then return end
+if GetResourceState('qbx_core') == 'started' then return end
+local QB = exports['qb-core']:GetCoreObject()
 
-Core.Framework = {}
-Core.Framework.Current = 'qb-core'
+Framework = {}
+local playerLoaded = false
 
-local QBCore = exports['qb-core']:GetCoreObject()
-
-Core.Framework.getCharacterName = function()
-    local playerData = QBCore.Functions.GetPlayerData()
-    local firstName = playerData.charinfo.firstname or ''
-    local lastName = playerData.charinfo.lastname or ''
-    return { first = firstName, last = lastName }
+Framework.getDetected = function()
+    return 'qb-core'
 end
 
-Core.Framework.getPlayerMetadata = function(meta)
-    local playerData = QBCore.Functions.GetPlayerData()
-    local metadata = playerData.metadata[meta]
-    return metadata
+Framework.isPlayerLoaded = function()
+    return playerLoaded
 end
 
-Core.Framework.toggleOutfit = function(wear, outfits)
-    if wear then
-        local playerData = QBCore.Functions.GetPlayerData()
-        if not playerData then return end
-        local gender = playerData.charinfo
-        local outfit = gender == 1 and outfits.Female or outfits.Male
-        if not outfit then return end
+Framework.getPlayerName = function()
+    local player = QB.Functions.GetPlayerData()
+    return player and {
+        first = player.charinfo.firstname,
+        last = player.charinfo.lastname,
+    }
+end
+
+Framework.getPlayerMetadata = function(key)
+    local player = QB.Functions.GetPlayerData()
+    return player and player.metadata[key]
+end
+
+Framework.setSkin = function(outfits)
+    local player = QB.Functions.GetPlayerData()
+    local outfit = player.charinfo.gender == 1 and outfits.Female or outfits.Male
+    if outfit then
         TriggerEvent('qb-clothing:client:loadOutfit', { outfitData = outfit })
-    else
-        TriggerServerEvent('qb-clothing:loadPlayerSkin')
     end
 end
+
+Framework.restoreSkin = function()
+    TriggerServerEvent('qb-clothing:loadPlayerSkin')
+end
+
+RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
+    TriggerEvent('r_bridge:playerLoaded')
+    playerLoaded = true
+end)
+
+RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
+    playerLoaded = false
+end)

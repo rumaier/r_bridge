@@ -1,85 +1,87 @@
 ---@diagnostic disable: duplicate-set-field
 if GetResourceState('qbx_core') ~= 'started' then return end
-
-Core.Framework = {}
-Core.Framework.Current = 'qbx_core'
-
 local QBX = exports.qbx_core
 
-Core.Framework.getPlayerIdentifier = function(src)
-    local player = QBX:GetPlayer(src)
-    if not player then return end
-    local identifier = player.PlayerData.citizenid
-    return identifier
+Framework = {}
+
+Framework.getDetected = function()
+    return 'qbx_core'
 end
 
-Core.Framework.getPlayerCharacterName = function(src)
+Framework.getPlayerIdentifier = function(src)
     local player = QBX:GetPlayer(src)
-    if not player then return end
-    local playerData = player.PlayerData
-    local firstName = playerData.charinfo.firstname or ''
-    local lastName = playerData.charinfo.lastname or ''
-    return { first = firstName, last = lastName }
+    return player and player.PlayerData.citizenid
 end
 
-Core.Framework.getPlayerJob = function(src)
+Framework.getPlayerName = function(src)
     local player = QBX:GetPlayer(src)
-    if not player then return end
-    local playerData = player.PlayerData
-    local job = playerData.job
-    return { name = job.name, label = job.label, grade = job.grade.level, gradeLabel = job.grade.name }
+    return player and {
+        first = player.PlayerData.charinfo.firstname,
+        last = player.PlayerData.charinfo.lastname,
+    }
 end
 
-Core.Framework.getPlayerMetadata = function(src, meta)
+Framework.getPlayerJob = function(src)
     local player = QBX:GetPlayer(src)
-    if not player then return end
-    local playerData = player.PlayerData
-    local metadata = playerData.metadata[meta]
-    return metadata
+    local job = player and player.PlayerData.job
+    return job and {
+        name = job.name,
+        label = job.label,
+        grade = job.grade.level,
+        gradeLabel = job.grade.name
+    }
 end
 
-Core.Framework.setPlayerMetadata = function(src, meta, value)
+Framework.getPlayerMetadata = function(src, key)
     local player = QBX:GetPlayer(src)
-    if not player then return end
-    player.Functions.SetMetaData(meta, value)
+    return player and player.PlayerData.metadata[key]
 end
 
-Core.Framework.getAccountBalance = function(src, account)
+Framework.setPlayerMetadata = function(src, key, value)
     local player = QBX:GetPlayer(src)
-    if not player then return end
-    local playerData = player.PlayerData
+    if player then
+        player.Functions.SetMetaData(key, value)
+    end
+end
+
+Framework.getBalance = function(src, account)
     if account == 'money' then account = 'cash' end
-    local balance = playerData.money[account]
-    return balance
-end
-
-Core.Framework.addAccountBalance = function(src, account, amount)
     local player = QBX:GetPlayer(src)
-    if not player then return end
-    if account == 'money' then account = 'cash' end
-    player.Functions.AddMoney(account, amount)
+    return player and player.PlayerData.money[account]
 end
 
-Core.Framework.removeAccountBalance = function(src, account, amount)
+Framework.addBalance = function(src, account, amount)
+    if account == 'money' then account = 'cash' end
     local player = QBX:GetPlayer(src)
-    if not player then return end
+    if player then
+        player.Functions.AddMoney(account, amount)
+    end
+end
+
+Framework.removeBalance = function(src, account, amount)
     if account == 'money' then account = 'cash' end
-    player.Functions.RemoveMoney(account, amount)
+    local player = QBX:GetPlayer(src)
+    if player then
+        player.Functions.RemoveMoney(account, amount)
+    end
 end
 
-Core.Framework.addSocietyBalance = function(job, amount)
-    local society = exports['Renewed-Banking']:getAccountMoney(job)
-    if not society then return end
-    exports['Renewed-Banking']:addAccountMoney(job, amount)
+Framework.addSocietyBalance = function(society, amount)
+    local society = exports['Renewed-Banking']:getAccountMoney(society)
+    if society then
+        exports['Renewed-Banking']:addAccountMoney(society, amount)
+    end
 end
 
-Core.Framework.removeSocietyBalance = function(job, amount)
-    local society = exports['Renewed-Banking']:getAccountMoney(job)
-    if not society then return end
-    exports['Renewed-Banking']:removeAccountMoney(job, amount)
+Framework.removeSocietyBalance = function(society, amount)
+    local society = exports['Renewed-Banking']:getAccountMoney(society)
+    if society then
+        exports['Renewed-Banking']:removeAccountMoney(society, amount)
+    end
 end
 
-Core.Framework.registerUsableItem = function(item, cb)
-    if not item or not cb then return end
-    QBX:CreateUseableItem(item, cb)
+Framework.registerUsableItem = function(item, cb)
+    if item and cb then
+        QBX:CreateUseableItem(item, cb)
+    end
 end
