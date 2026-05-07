@@ -5,7 +5,7 @@ Interface.notify = function(title, text, type, duration)
         title = title,
         description = text,
         type = type,
-        duration = duration
+        duration = duration or 5000,
     })
 end
 

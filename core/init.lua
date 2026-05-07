@@ -10,6 +10,10 @@ exports('getTargetObject', function()
     return Target
 end)
 
+exports('getInterfaceObject', function()
+    return Interface
+end)
+
 exports('getNativesObject', function()
     return Natives
 end)

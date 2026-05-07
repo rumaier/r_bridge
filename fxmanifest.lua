@@ -26,6 +26,7 @@ client_scripts {
   'core/natives.lua',
   'framework/**/client.lua',
   'inventory/**/client.lua',
+  'interface/*.lua'
 }
 
 dependencies {
