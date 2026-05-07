@@ -26,6 +26,7 @@ local function check(resource)
     PerformHttpRequest(url, function(err, body)
         if err ~= 200 then return end
         body = json.decode(body)
+        if not body or not body[resource] then return end
         local data = body[resource]
         local latest = parse(data.latest)
         local url = not data.repo and portalUrl or githubUrl:format(resource)
