@@ -20,7 +20,6 @@ local function getVersion(resource)
 end
 
 local function check(resource)
-    resource = resource or GetInvokingResource()
     local version = getVersion(resource)
     local url = 'https://raw.githubusercontent.com/rumaier/r_scripts_versions/main/versions.json'
     PerformHttpRequest(url, function(err, body)
