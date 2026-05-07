@@ -8,7 +8,7 @@
 
 ## Support
 
-[Discord](https://discord.gg/rscripts)
+[Discord](https://discord.gg/TR38cZFdQk)
 
 ## License
 

@@ -10,17 +10,24 @@ author 'rumaier'
 version '3.0.0'
 
 shared_scripts {
-
+  '@ox_lib/init.lua',
+  'inventory/util.lua',
+  'core/init.lua',
+  'target/*.lua'
 }
 
 server_scripts {
+  'core/version.lua',
   'framework/**/server.lua',
+  'inventory/**/server.lua'
 }
 
 client_scripts {
+  'core/natives.lua',
   'framework/**/client.lua',
+  'inventory/**/client.lua',
 }
 
 dependencies {
-  -- 'ox_lib',
+  'ox_lib',
 }
