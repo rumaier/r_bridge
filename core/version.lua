@@ -4,7 +4,7 @@ local githubUrl = 'https://github.com/rumaier/%s/releases/latest'
 
 local function alert(resource, current, latest, url)
     print('^3-------------------------------------------------------------------------^0')
-    print('[^3WARNING^0] Please update ' .. resource .. ' to its latest version.')
+    print('[^3WARNING^0] Please update ' .. resource .. ' to its latest version')
     print('[^3WARNING^0] Current: ^1' .. current .. '^0')
     print('[^3WARNING^0] Latest: ^2' .. latest .. '^0')
     print('[^3WARNING^0] Download: ^5' .. url .. '^0')
