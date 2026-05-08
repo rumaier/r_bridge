@@ -1,3 +1,4 @@
+local r_bridge = GetCurrentResourceName()
 local portalUrl = 'https://portal.cfx.re/assets/granted-assets'
 local githubUrl = 'https://github.com/rumaier/%s/releases/latest'
 
@@ -37,9 +38,13 @@ end
 
 exports('checkVersion', check)
 
+local function checkOwnVersion()
+    check(r_bridge)
+    SetTimeout(3600000, checkOwnVersion)
+end
+
 AddEventHandler('onResourceStart', function(resource)
-    local r_bridge = GetCurrentResourceName()
     if resource == r_bridge then
-        check(r_bridge)
+        checkOwnVersion()
     end
 end)
