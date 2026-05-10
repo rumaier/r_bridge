@@ -13,7 +13,7 @@ Framework.getPlayerIdentifier = function(src)
 end
 
 Framework.getPlayerName = function(src)
-    local xPlayer = ESX.Player(src)
+    local xPlayer = ESX.GetPlayerFromId(src)
     return xPlayer and {
         first = xPlayer.variables.firstName,
         last = xPlayer.variables.lastName
@@ -21,7 +21,7 @@ Framework.getPlayerName = function(src)
 end
 
 Framework.getPlayerJob = function(src)
-    local xPlayer = ESX.Player(src)
+    local xPlayer = ESX.GetPlayerFromId(src)
     local job = xPlayer and xPlayer.getJob()
     return job and {
         name = job.name,
@@ -32,12 +32,12 @@ Framework.getPlayerJob = function(src)
 end
 
 Framework.getPlayerMetadata = function(src, key)
-    local xPlayer = ESX.Player(src)
+    local xPlayer = ESX.GetPlayerFromId(src)
     return xPlayer and xPlayer.getMeta(key)
 end
 
 Framework.setPlayerMetadata = function(src, key, value)
-    local xPlayer = ESX.Player(src)
+    local xPlayer = ESX.GetPlayerFromId(src)
     if xPlayer then
         xPlayer.setMeta(key, value)
     end
@@ -45,13 +45,13 @@ end
 
 Framework.getBalance = function(src, account)
     if account == 'cash' then account = 'money' end
-    local xPlayer = ESX.Player(src)
+    local xPlayer = ESX.GetPlayerFromId(src)
     return xPlayer and xPlayer.getAccount(account).money
 end
 
 Framework.addBalance = function(src, account, amount)
     if account == 'cash' then account = 'money' end
-    local xPlayer = ESX.Player(src)
+    local xPlayer = ESX.GetPlayerFromId(src)
     if xPlayer then
         xPlayer.addAccountMoney(account, amount)
     end
@@ -59,7 +59,7 @@ end
 
 Framework.removeBalance = function(src, account, amount)
     if account == 'cash' then account = 'money' end
-    local xPlayer = ESX.Player(src)
+    local xPlayer = ESX.GetPlayerFromId(src)
     if xPlayer then
         xPlayer.removeAccountMoney(account, amount)
     end
