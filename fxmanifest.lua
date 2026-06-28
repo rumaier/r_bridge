@@ -24,6 +24,7 @@ server_scripts {
 
 client_scripts {
   'core/natives.lua',
+  'core/object_placer.lua',
   'framework/**/client.lua',
   'inventory/**/client.lua',
   'interface/*.lua'
