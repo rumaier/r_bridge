@@ -54,6 +54,14 @@ Natives.clearGpsRoute = function()
     ClearGpsMultiRoute()
 end
 
+Natives.teleportPlayer = function(coords, heading)
+    DoScreenFadeOut(750)
+    Wait(800)
+    StartPlayerTeleport(cache.playerId, coords.x, coords.y, coords.z, heading, false, true, false)
+    Wait(200)
+    DoScreenFadeIn(325)
+end
+
 Natives.createObject = function(model, coords, heading, network)
     model = type(model) ~= 'number' and joaat(model) or model
     RequestModel(model)
