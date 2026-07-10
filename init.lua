@@ -1,5 +1,12 @@
 ---@diagnostic disable: undefined-global
 
+--[[
+    Import API inspired by ox_lib
+    https://github.com/overextended/ox_lib
+
+    Copyright © Linden <https://github.com/thelindat>
+]]
+
 local bridgeName = 'r_bridge'
 local context = IsDuplicityVersion() and 'server' or 'client'
 
