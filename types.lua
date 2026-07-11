@@ -1,4 +1,6 @@
----@meta
+---@meta r_bridge
+--- LuaLS definition file for the global `bridge` API created by `@r_bridge/init.lua`.
+--- Loaded across the multi-root workspace via `Lua.workspace.library` (see r_scripts.code-workspace).
 
 ---@class BridgeNameResult
 ---@field first string
