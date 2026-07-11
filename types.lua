@@ -2,6 +2,24 @@
 --- LuaLS definition file for the global `bridge` API created by `@r_bridge/init.lua`.
 --- Loaded across the multi-root workspace via `Lua.workspace.library` (see r_scripts.code-workspace).
 
+---FiveM built-in 3D vector (`vector3(x, y, z)`).
+---@class vector3
+---@field x number
+---@field y number
+---@field z number
+---@operator add(vector3): vector3
+---@operator sub(vector3): vector3
+---@operator mul(number|vector3): vector3
+---@operator div(number|vector3): vector3
+---@operator unm: vector3
+
+---Creates a FiveM `vector3`.
+---@param x number
+---@param y number
+---@param z number
+---@return vector3
+function vector3(x, y, z) end
+
 ---@class BridgeNameResult
 ---@field first string
 ---@field last string
