@@ -319,6 +319,14 @@ function BridgeInterface.hideTextUi() end
 ---@return boolean
 function BridgeInterface.isTextUiOpen() end
 
+---Show GTA help text at the top left of the screen.
+---@param text string
+---@param duration number? Duration in ms, or `-1` to keep showing until cleared. Defaults to `5000`.
+function BridgeInterface.showHelpText(text, duration) end
+
+---Clear all currently displayed help text.
+function BridgeInterface.clearHelpText() end
+
 ---@class BridgeNatives
 local BridgeNatives = {}
 

@@ -75,4 +75,14 @@ Interface.isTextUiOpen = function()
     return lib.isTextUIOpen()
 end
 
+Interface.showHelpText = function(text, duration)
+    BeginTextCommandDisplayHelp('STRING')
+    AddTextComponentString(text)
+    EndTextCommandDisplayHelp(0, false, true, duration or 5000)
+end
+
+Interface.clearHelpText = function()
+    ClearAllHelpMessages()
+end
+
 return Interface
