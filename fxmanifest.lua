@@ -5,7 +5,7 @@ game 'gta5'
 lua54 'yes'
 
 name 'r_bridge'
-description 'Compatibility layer for r_scripts resources'
+description 'Compatibility Layer for r_scripts Resources'
 author 'rumaier'
 version '3.0.0'
 
