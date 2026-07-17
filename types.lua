@@ -6,7 +6,6 @@
 ---@class vector3
 ---@field x number
 ---@field y number
----@field z number
 ---@operator add(vector3): vector3
 ---@operator sub(vector3): vector3
 ---@operator mul(number|vector3): vector3
