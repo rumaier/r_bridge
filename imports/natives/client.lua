@@ -45,12 +45,25 @@ Natives.clearGpsRoute = function()
     ClearGpsMultiRoute()
 end
 
+Natives.setPedInert = function(id, toggle)
+    FreezeEntityPosition(id, toggle)
+    SetEntityInvincible(id, toggle)
+    SetBlockingOfNonTemporaryEvents(id, toggle)
+end
+
 Natives.teleportPlayer = function(coords, heading)
     DoScreenFadeOut(750)
     Wait(800)
     StartPlayerTeleport(cache.playerId, coords.x, coords.y, coords.z, heading, false, true, false)
     Wait(200)
     DoScreenFadeIn(325)
+end
+
+Natives.isPedFacingEntity = function(ped, entity, maxAngle)
+    local coords = GetEntityCoords(entity)
+    local offset = GetOffsetFromEntityGivenWorldCoords(ped, coords.x, coords.y, coords.z)
+    local angle = math.abs(math.deg(math.atan(offset.x, offset.y)))
+    return offset.y > 0.0 and angle <= (maxAngle or 5.0)
 end
 
 Natives.createObject = function(model, coords, heading, network)
@@ -70,12 +83,6 @@ Natives.createPed = function(model, coords, heading, network)
     local id = CreatePed(0, model, coords.x, coords.y, coords.z, heading, network, true)
     SetModelAsNoLongerNeeded(model)
     return id
-end
-
-Natives.setPedInert = function(id, toggle)
-    FreezeEntityPosition(id, toggle)
-    SetEntityInvincible(id, toggle)
-    SetBlockingOfNonTemporaryEvents(id, toggle)
 end
 
 Natives.createVehicle = function(model, coords, heading, network)

@@ -351,10 +351,22 @@ function BridgeNatives.setGpsRoute(coords, color) end
 ---Clear the current GPS multi-route.
 function BridgeNatives.clearGpsRoute() end
 
+---Freeze a ped and make it inert (invincible, ignore events).
+---@param id number
+---@param toggle boolean
+function BridgeNatives.setPedInert(id, toggle) end
+
 ---Teleport the local player with a screen fade.
 ---@param coords vector3
 ---@param heading number
 function BridgeNatives.teleportPlayer(coords, heading) end
+
+---Whether a ped is facing an entity within the given angle tolerance.
+---@param ped number
+---@param entity number
+---@param maxAngle number? Maximum angle in degrees. Defaults to `5.0`.
+---@return boolean
+function BridgeNatives.isPedFacingEntity(ped, entity, maxAngle) end
 
 ---Create an object entity. Accepts a model name or hash.
 ---@param model string|number
@@ -371,11 +383,6 @@ function BridgeNatives.createObject(model, coords, heading, network) end
 ---@param network boolean
 ---@return number entity
 function BridgeNatives.createPed(model, coords, heading, network) end
-
----Freeze a ped and make it inert (invincible, ignore events).
----@param id number
----@param toggle boolean
-function BridgeNatives.setPedInert(id, toggle) end
 
 ---Create a vehicle entity. Accepts a model name or hash.
 ---@param model string|number
