@@ -411,7 +411,7 @@ local BridgeUtility = {}
 ---@param model string|number
 ---@param offset vector3?
 ---@param rotation vector3?
----@param minDistance number
+---@param minDistance number?
 ---@param snapToGround boolean?
 ---@param allowedTerrain table<number, boolean>?
 ---@return vector3? coords

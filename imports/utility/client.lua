@@ -1,34 +1,29 @@
 ---@diagnostic disable: undefined-global
+local Utility = {}
 
-local active = false
-local entity = nil
-
-local helpText = '[E] Place  \n[X] Cancel  \n[Scroll Up] Turn Left  \n[Scroll Down] Turn Right'
-
-local function cleanup()
-    if not active or not entity then return end
-    SetEntityDrawOutlineColor(255, 0, 255, 255)
-    bridge.interface.hideTextUi()
-    DeleteEntity(entity)
-    active = false
+-------------------
+-- Object Placer --
+-------------------
+local placerState = {
+    active = false,
     entity = nil
-end
+}
 
-local function useObjectPlacer(model, offset, rotation, minDistance, snapToGround, allowedTerrain)
-    if active then return end
+Utility.useObjectPlacer = function(model, offset, rotation, minDistance, snapToGround, allowedTerrain)
+    if placerState.active then return end
     local inbounds = true
     local maxDistance = minDistance + 5.0
+    local heading = (GetGameplayCamRot(0).z + 360) % 360 - rotation.z
     offset = offset or vec3(0, 0, 0)
     rotation = rotation or vec3(0, 0, 0)
-    local heading = (GetGameplayCamRot(0).z + 360) % 360 - rotation.z
-    entity = bridge.natives.createObject(model, vec3(0, 0, 0), 0, false)
-    SetEntityAlpha(entity, 150, false)
+    placerState.active = true
+    placerState.entity = bridge.natives.createObject(model, vec3(0, 0, 0), heading, false)
+    SetEntityAlpha(placerState.entity, 150, false)
     SetEntityDrawOutlineColor(255, 0, 0, 255)
     SetEntityCompletelyDisableCollision(entity, false, true)
     SetEntityInvincible(entity, true)
-    bridge.interface.showTextUi(helpText)
-    active = true
-    while active and DoesEntityExist(entity) do
+    bridge.interface.showTextUi('[E] Place  \n[X] Cancel  \n[Scroll Up] Turn Left  \n[Scroll Down] Turn Right')
+    while placerState.active and DoesEntityExist(placerState.entity) do
         local hit, _, coords, _, terrain = lib.raycast.fromCamera(1, 4)
         if hit then
             SetEntityCoords(entity, coords.x, coords.y, coords.z, false, false, false, false)
@@ -64,15 +59,15 @@ local function useObjectPlacer(model, offset, rotation, minDistance, snapToGroun
             end
 
             if IsControlJustPressed(0, 38) or IsControlJustReleased(0, 38) and inbounds then
-                cleanup()
+                SetEntityDrawOutlineColor(255, 0, 255, 255)
+                bridge.interface.hideTextUi()
+                DeleteEntity(placerState.entity)
+                placerState.active = false
+                placerState.entity = nil
                 return coords, heading
             end
         end
     end
 end
-
-local Utility = {}
-
-Utility.useObjectPlacer = useObjectPlacer
 
 return Utility
