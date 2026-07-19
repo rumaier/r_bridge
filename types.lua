@@ -368,6 +368,13 @@ function BridgeNatives.teleportPlayer(coords, heading) end
 ---@return boolean
 function BridgeNatives.isPedFacingEntity(ped, entity, maxAngle) end
 
+---Whether a ped is facing coordinates within the given angle tolerance.
+---@param ped number
+---@param coords vector3
+---@param maxAngle number? Maximum angle in degrees. Defaults to `5.0`.
+---@return boolean
+function BridgeNatives.isPedFacingCoord(ped, coords, maxAngle) end
+
 ---Create an object entity. Accepts a model name or hash.
 ---@param model string|number
 ---@param coords vector3

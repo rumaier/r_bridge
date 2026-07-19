@@ -66,6 +66,12 @@ Natives.isPedFacingEntity = function(ped, entity, maxAngle)
     return offset.y > 0.0 and angle <= (maxAngle or 5.0)
 end
 
+Natives.isPedFacingCoord = function(ped, coords, maxAngle)
+    local offset = GetOffsetFromEntityGivenWorldCoords(ped, coords.x, coords.y, coords.z)
+    local angle = math.abs(math.deg(math.atan(offset.x, offset.y)))
+    return offset.y > 0.0 and angle <= (maxAngle or 5.0)
+end
+
 Natives.createObject = function(model, coords, heading, network)
     model = type(model) ~= 'number' and joaat(model) or model
     RequestModel(model)
