@@ -9,6 +9,10 @@ local placerState = {
     entity = nil
 }
 
+Utility.isObjectPlacerActive = function()
+    return placerState.active
+end
+
 Utility.useObjectPlacer = function(model, offset, rotation, minDistance, snapToGround, allowedTerrain)
     if placerState.active then return end
     local inbounds = true

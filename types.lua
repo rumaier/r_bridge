@@ -432,6 +432,10 @@ local BridgeUtility = {}
 ---@return number? heading
 function BridgeUtility.useObjectPlacer(model, offset, rotation, minDistance, snapToGround, allowedTerrain) end
 
+---Whether the object placer is currently active.
+---@return boolean
+function BridgeUtility.isObjectPlacerActive() end
+
 ---@class BridgeVersion
 ---@field current string Current r_bridge version from resource metadata
 local BridgeVersion = {}
