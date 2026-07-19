@@ -223,7 +223,7 @@ function BridgeTarget.addLocalEntity(entity, options) end
 function BridgeTarget.removeLocalEntity(entity) end
 
 ---Add target options for a model.
----@param model string|number
+---@param model string|number|table
 ---@param options table
 function BridgeTarget.addModel(model, options) end
 
