@@ -228,7 +228,7 @@ function BridgeTarget.removeLocalEntity(entity) end
 function BridgeTarget.addModel(model, options) end
 
 ---Remove target options for a model.
----@param model string|number
+---@param model string|number|table
 function BridgeTarget.removeModel(model) end
 
 ---Add a sphere/circle zone. Returns a zone id (`number` for ox_target, `string` for qb-target).
