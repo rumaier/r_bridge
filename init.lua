@@ -12,7 +12,7 @@ local context = IsDuplicityVersion() and 'server' or 'client'
 
 local providers = {
     framework = { 'qbx_core', 'qb-core', 'es_extended' },
-    inventory = { 'ox_inventory', 'qb-inventory', 'codem-inventory', 'origen_inventory', 'tgiann-inventory' },
+    inventory = { 'ox_inventory', 'one_inventory', 'qb-inventory', 'codem-inventory', 'origen_inventory', 'tgiann-inventory' },
     target = { 'ox_target', 'qb-target' },
 }
 

@@ -128,7 +128,7 @@ function BridgeFramework.restoreSkin() end
 local BridgeInventory = {}
 
 ---Returns the detected inventory resource name.
----@return 'ox_inventory'|'qb-inventory'|'codem-inventory'|'origen_inventory'|'tgiann-inventory'
+---@return 'ox_inventory'|'one_inventory'|'qb-inventory'|'codem-inventory'|'origen_inventory'|'tgiann-inventory'
 function BridgeInventory.getDetected() end
 
 ---**(client)** Returns a NUI image path format string (use with `string.format`, `%s` = item name).
