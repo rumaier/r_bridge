@@ -45,4 +45,10 @@ RegisterNetEvent('esx:playerLoaded', function()
     end
 end)
 
+RegisterNetEvent('esx:onPlayerLogout', function()
+    if GetCurrentResourceName() == 'r_bridge' then
+        TriggerEvent('r_bridge:playerUnloaded')
+    end
+end)
+
 return Framework

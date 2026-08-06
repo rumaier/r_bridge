@@ -46,6 +46,9 @@ RegisterNetEvent('QBCore:Client:OnPlayerLoaded', function()
 end)
 
 RegisterNetEvent('QBCore:Client:OnPlayerUnload', function()
+    if GetCurrentResourceName() == 'r_bridge' then
+        TriggerEvent('r_bridge:playerUnloaded')
+    end
     playerLoaded = false
 end)
 
