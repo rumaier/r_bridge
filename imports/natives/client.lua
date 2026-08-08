@@ -51,10 +51,11 @@ Natives.setPedInert = function(id, toggle)
     SetBlockingOfNonTemporaryEvents(id, toggle)
 end
 
-Natives.teleportPlayer = function(coords, heading)
+Natives.teleportPlayer = function(coords, heading, onTp)
     DoScreenFadeOut(750)
     Wait(800)
     StartPlayerTeleport(cache.playerId, coords.x, coords.y, coords.z, heading, false, true, false)
+    if onTp then onTp() end
     Wait(200)
     DoScreenFadeIn(325)
 end
