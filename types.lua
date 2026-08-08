@@ -33,6 +33,7 @@ function vector3(x, y, z) end
 ---@field name string
 ---@field count number
 ---@field metadata table?
+---@field info table?
 ---@field slot number?
 ---@field stack boolean?
 
