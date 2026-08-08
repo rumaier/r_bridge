@@ -360,7 +360,8 @@ function BridgeNatives.setPedInert(id, toggle) end
 ---Teleport the local player with a screen fade.
 ---@param coords vector3
 ---@param heading number
-function BridgeNatives.teleportPlayer(coords, heading) end
+---@param onTp fun()?
+function BridgeNatives.teleportPlayer(coords, heading, onTp) end
 
 ---Whether a ped is facing an entity within the given angle tolerance.
 ---@param ped number
