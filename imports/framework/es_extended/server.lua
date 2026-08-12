@@ -8,7 +8,8 @@ Framework.getDetected = function()
 end
 
 Framework.getPlayerIdentifier = function(src)
-    return ESX.GetIdentifier(src)
+    local xPlayer = ESX.GetPlayerFromId(src)
+    return xPlayer and xPlayer.identifier or nil
 end
 
 Framework.getPlayerName = function(src)
