@@ -52,17 +52,17 @@ end
 Framework.addBalance = function(src, account, amount)
     if account == 'cash' then account = 'money' end
     local xPlayer = ESX.GetPlayerFromId(src)
-    if xPlayer then
-        xPlayer.addAccountMoney(account, amount)
-    end
+    if not xPlayer then return false end
+    xPlayer.addAccountMoney(account, amount)
+    return true
 end
 
 Framework.removeBalance = function(src, account, amount)
     if account == 'cash' then account = 'money' end
     local xPlayer = ESX.GetPlayerFromId(src)
-    if xPlayer then
-        xPlayer.removeAccountMoney(account, amount)
-    end
+    if not xPlayer then return false end
+    xPlayer.removeAccountMoney(account, amount)
+    return true
 end
 
 Framework.addSocietyBalance = function(society, amount)

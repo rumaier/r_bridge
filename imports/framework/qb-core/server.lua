@@ -52,17 +52,17 @@ end
 Framework.addBalance = function(src, account, amount)
     if account == 'money' then account = 'cash' end
     local player = QB.Functions.GetPlayer(src)
-    if player then
-        player.Functions.AddMoney(account, amount)
-    end
+    if not player then return false end
+    player.Functions.AddMoney(account, amount)
+    return true
 end
 
 Framework.removeBalance = function(src, account, amount)
     if account == 'money' then account = 'cash' end
     local player = QB.Functions.GetPlayer(src)
-    if player then
-        player.Functions.RemoveMoney(account, amount)
-    end
+    if not player then return false end
+    player.Functions.RemoveMoney(account, amount)
+    return true
 end
 
 Framework.addSocietyBalance = function(society, amount)
