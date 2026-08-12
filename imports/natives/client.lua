@@ -54,7 +54,12 @@ end
 Natives.teleportPlayer = function(coords, heading, onTp)
     DoScreenFadeOut(750)
     Wait(800)
-    StartPlayerTeleport(cache.playerId, coords.x, coords.y, coords.z, heading, false, true, false)
+    RequestCollisionAtCoord(coords.x, coords.y, coords.z)
+    StartPlayerTeleport(cache.playerId, coords.x, coords.y, coords.z, heading, false, true, true)
+    local timeout = GetGameTimer() + 5000
+    while IsPlayerTeleportActive() and GetGameTimer() < timeout do
+        Wait(0)
+    end
     if onTp then onTp() end
     Wait(200)
     DoScreenFadeIn(325)
