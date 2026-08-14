@@ -23,7 +23,7 @@ end
 
 local function check(resource)
     local version = getVersion(resource)
-    local url = 'https://raw.githubusercontent.com/rumaier/versions/main/versions.json'
+    local url = 'https://raw.githubusercontent.com/rumaier/versions/refs/heads/main/versions.json'
     PerformHttpRequest(url, function(err, body)
         if err ~= 200 then return end
         body = json.decode(body)
