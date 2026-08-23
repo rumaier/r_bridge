@@ -4,6 +4,8 @@ local Utility = {}
 -------------------
 -- Object Placer --
 -------------------
+local HEADING_STEP = 2
+
 local placerState = {
     active = false,
     entity = nil
@@ -50,11 +52,11 @@ Utility.useObjectPlacer = function(model, offset, rotation, minDistance, snapToG
             end
 
             if IsControlJustReleased(0, 14) then
-                heading = (heading + 10) % 360
+                heading = (heading + HEADING_STEP) % 360
             end
 
             if IsControlJustReleased(0, 15) then
-                heading = (heading - 10) % 360
+                heading = (heading - HEADING_STEP) % 360
             end
 
             if IsControlJustPressed(0, 73) or IsControlJustReleased(0, 73) then
