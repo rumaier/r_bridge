@@ -15,9 +15,10 @@ Utility.isObjectPlacerActive = function()
     return placerState.active
 end
 
-Utility.useObjectPlacer = function(model, offset, rotation, minDistance, snapToGround, allowedTerrain)
+Utility.useObjectPlacer = function(model, offset, rotation, minDistance, snapToGround, allowedTerrain, rotationStep)
     if placerState.active then return end
     local inbounds = true
+    rotationStep = rotationStep or HEADING_STEP
     local maxDistance = (minDistance or 1.0) + 5.0
     offset = offset or vec3(0, 0, 0)
     rotation = rotation or vec3(0, 0, 0)
@@ -52,11 +53,11 @@ Utility.useObjectPlacer = function(model, offset, rotation, minDistance, snapToG
             end
 
             if IsControlJustReleased(0, 14) then
-                heading = (heading + HEADING_STEP) % 360
+                heading = (heading + rotationStep) % 360
             end
 
             if IsControlJustReleased(0, 15) then
-                heading = (heading - HEADING_STEP) % 360
+                heading = (heading - rotationStep) % 360
             end
 
             if IsControlJustPressed(0, 73) or IsControlJustReleased(0, 73) then
